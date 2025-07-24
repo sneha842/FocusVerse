@@ -30,7 +30,7 @@ Whether you're preparing for exams or working on projects, FocusVerse makes focu
 
 ## 📌 Status
 
-Project under active development for GSSoC’25 🚀  
+Project under active development  
 Codebase will be updated soon!
 
 ---
