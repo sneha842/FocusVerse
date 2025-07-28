@@ -8,7 +8,7 @@ We truly value community effort and are thrilled to collaborate with amazing dev
 
 ## 📌 Code of Conduct
 
-Please read and follow our [Code of Conduct](/.CODEOFCONDUCT.md) to ensure a welcoming and inclusive environment.
+Please read and follow our [Code of Conduct](/CODEOFCONDUCT.md) to ensure a welcoming and inclusive environment.
 
 ---
 
