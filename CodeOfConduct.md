@@ -14,6 +14,6 @@ To keep this project welcoming and positive for everyone:
 - Spam or self-promote unnecessarily  
 
 If you face any issues or feel uncomfortable, contact the maintainer at:  
-📧 sneha.your.email@example.com (replace with your email)
+📧 srivastavasneha895@gmail.com
 
 Let’s build something amazing together! 💫
