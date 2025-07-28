@@ -33,6 +33,30 @@
             <button onclick="toggleMusic()">🎵 Toggle Music</button>
         </div>
     </div>
+    <footer class="footer" role="contentinfo" aria-label="Site Footer">
+        <div class="footer-content">
+            <span>© <span id="footer-year"></span> FocusVerse. Stay focused, stay awesome! 🌱</span>
+            <span>
+                <a href="mailto:support@focusverse.com" aria-label="Contact Email">Contact</a> |
+                <a href="privacy.html" aria-label="Privacy Policy">Privacy Policy</a> |
+                <a href="#top" id="back-to-top" aria-label="Back to Top">⬆️ Top</a>
+            </span>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
+    <script>
+        // Set dynamic year in footer
+        const yearSpan = document.getElementById('footer-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+        // Back to Top functionality
+        const backToTop = document.getElementById('back-to-top');
+        if (backToTop) {
+            backToTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
 </body>
 </html>
