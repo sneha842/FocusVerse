@@ -98,3 +98,35 @@ body {
   background-color: #ff8c42;
   transform: translateY(-2px); /* Adds a slight lift effect on hover */
 }
+
+.music-controls button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.music-controls button:hover {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  transform: scale(1.05);
+}
+
+.dark-mode{
+  background-color: #1e1e1e;
+  color: #ffffff
+  background-image: none;
+}
+
+.dark-mode .container{
+  background-color: #333
+  color#fff
+}
