@@ -120,11 +120,12 @@ body {
   transform: scale(1.05);
 }
 
-.dark-mode{
+.dark-mode {
   background-color: #1e1e1e;
   color: #ffffff;
   background-image: none;
 }
+
 
 .dark-mode .container{
   background-color: #333;
