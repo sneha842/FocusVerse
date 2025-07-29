@@ -3,34 +3,34 @@ let minutes = 25;
 let seconds = 0;
 let isRunning = false;
 
-const minutesDisplay      = document.getElementById("minutes");
-const secondsDisplay      = document.getElementById("seconds");
-const distractionMessage  = document.getElementById("distractionmessage");
-const quoteBox            = document.getElementById("quoteBox");
-const bgMusic             = document.getElementById("bgMusic");
-const musicSource         = document.getElementById("musicSource");
+const minutesDisplay = document.getElementById("minutes");
+const secondsDisplay = document.getElementById("seconds");
+const distractionMessage = document.getElementById("distractionmessage");
+const quoteBox = document.getElementById("quoteBox");
+const bgMusic = document.getElementById("bgMusic");
+const musicSource = document.getElementById("musicSource"); // Added musicSource from PR
 
 const quotes = [
   "🌿 Stay calm and keep going...",
   "✨ One step at a time!",
   "💪 You’re doing great!",
   "🚀 Focus fuels success!",
-  "🔥 Don’t stop now!"
+  "🔥 Don’t stop now!",
 ];
 
-// Map themes to audio file paths
+// Music theme to file path map from PR
 const musicMap = {
   piano: "/static/audio/piano.mp3",
   nature: "/static/audio/funeral.mp3",
   rain: "/static/audio/insp.mp3",
-  campfire: "/static/audio/hist.mp3"
+  campfire: "/static/audio/hist.mp3",
 };
 
 let currentTheme = null;
 
 function updateDisplay() {
-  const mm = String(minutes).padStart(2, '0');
-  const ss = String(seconds).padStart(2, '0');
+  const mm = String(minutes).padStart(2, "0");
+  const ss = String(seconds).padStart(2, "0");
   minutesDisplay.textContent = mm;
   secondsDisplay.textContent = ss;
 
@@ -82,7 +82,8 @@ function resetButton() {
 }
 
 function gotdistracted() {
-  distractionMessage.textContent = "🚨 Distraction Detected! Take a breath and refocus ✨";
+  distractionMessage.textContent =
+    "🚨 Distraction Detected! Take a breath and refocus ✨";
 }
 
 function controlVolume() {
@@ -90,7 +91,7 @@ function controlVolume() {
   const slider = volumeControl.querySelector("#volumeControlSlider");
   bgMusic.volume = slider.value / 100;
 
-  slider.oninput = function() {
+  slider.oninput = function () {
     bgMusic.volume = this.value / 100;
   };
 
