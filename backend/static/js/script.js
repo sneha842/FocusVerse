@@ -89,7 +89,7 @@ function controlVolume() {
 
 
 function toggleMusic() {
-    var volumeControl = document.getElementById("volumeControl");
+    const volumeControl = document.getElementById("volumeControl");
     if (bgMusic.paused) {
         bgMusic.play();
         controlVolume();
@@ -98,9 +98,7 @@ function toggleMusic() {
         bgMusic.pause();
         volumeControl.style.display = "none";
     }
-
-  if (bgMusic.paused) bgMusic.play();
-  else bgMusic.pause();
 }
+
 
 updateDisplay();
