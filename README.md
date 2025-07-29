@@ -1,6 +1,6 @@
 <h1 align = "centre" >🌌 FocusVerse - Your Peaceful Portal To Productivity ⭐</h1>
 
-<a href="https://focusverse-8ni6.onrender.com">FocusVerse</a>
+<h3 <p align ="center"> <a href="https://focusverse-8ni6.onrender.com">FocusVerse</a> </h3>
 <h2 align="center">📊 Project Stats</h2>
 
 <p align="center">
