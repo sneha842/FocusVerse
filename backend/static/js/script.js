@@ -103,10 +103,12 @@ function updateStreakOnSessionComplete() {
     const lastCompleted = localStorage.getItem('lastFocusDate');
     const today = getTodayDateString();
     let streak = Number(localStorage.getItem('focusStreak')) || 0;
+
     if (lastCompleted === today) {
         // Already counted today
         return;
     }
+
     if (lastCompleted) {
         const lastDate = new Date(lastCompleted);
         const todayDate = new Date(today);
@@ -115,14 +117,15 @@ function updateStreakOnSessionComplete() {
             streak += 1;
         } else if (diff > 1) {
             streak = 1;
-        } // diff < 1 means user is in the same day, already handled
+        } // diff < 1 means same day — already handled
     } else {
         streak = 1;
     }
+
     localStorage.setItem('focusStreak', streak);
     localStorage.setItem('lastFocusDate', today);
     updateStreakDisplay();
 }
 
-// Call updateStreakDisplay on load
+// Update streak on initial load
 updateStreakDisplay();
