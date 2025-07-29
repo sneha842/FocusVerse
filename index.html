@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <i class="fa-solid fa-spinner"></i>
+            <h2>Loading<span class="dots"></span></h2>
+        </div>
+    </div>
     <div class="container">
         <h1>🌌FocusVerse!!</h1>
         <p>Your Peaceful Portal to Productivity!</p>
@@ -34,5 +43,18 @@
         </div>
     </div>
     <script src="script.js"></script>
+
+    <!-- Visibility change  -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loadingScreen = document.getElementById("loading-screen");
+        
+            // Set a timeout to hide the loading screen
+            setTimeout(() => {
+                loadingScreen.classList.add("hidden");
+            }, 6000); // 6000ms = 6 seconds (adjust as needed)
+        });
+        
+    </script>
 </body>
 </html>
