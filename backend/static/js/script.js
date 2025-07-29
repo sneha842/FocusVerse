@@ -10,7 +10,7 @@ const quoteBox = document.getElementById("quoteBox");
 const bgMusic = document.getElementById("bgMusic");
 
 const quotes = [
-    "🌿 Stay calm and keep going...",
+    "🌿 Stay calm and keep going",
     "✨ One step at a time!",
     "💪 You’re doing great!",
     "🚀 Focus fuels success!",
