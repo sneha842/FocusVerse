@@ -1,7 +1,7 @@
 from flask import Flask
 
 def create_app():
-    app = Flask(_name_)  # don't set paths here
+    app = Flask(__name__)
 
     from .routes.dashboard_routes import dashboard_bp
     app.register_blueprint(dashboard_bp)
