@@ -108,7 +108,6 @@ function updateStreakOnSessionComplete() {
     const today = getTodayDateString();
     let streak = Number(localStorage.getItem('focusStreak')) || 0;
     if (lastCompleted === today) {
-        // Already counted today
         return;
     }
     if (lastCompleted) {
