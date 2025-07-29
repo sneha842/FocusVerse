@@ -19,13 +19,19 @@ const quotes = [
 ];
 
 function updateDisplay() {
-    minutesDisplay.textContent = String(minutes).padStart(2, '0');
-    secondsDisplay.textContent = String(seconds).padStart(2, '0');
+    const mm = String(minutes).padStart(2, '0');
+    const ss = String(seconds).padStart(2, '0');
+    minutesDisplay.textContent = mm;
+    secondsDisplay.textContent = ss;
+    if (isRunning) {
+        document.title = `Focus: ${mm}:${ss} remaining`;
+    } else {
+        document.title = "FocusVerse – Ready to begin";
+    }
 }
 
 function startButton() {
     if (isRunning) return;
-
     isRunning = true;
     timer = setInterval(() => {
         if (seconds === 0) {
@@ -33,6 +39,7 @@ function startButton() {
                 clearInterval(timer);
                 isRunning = false;
                 alert("⏰ Time's up! Great job! Take a short break.");
+                document.title = "FocusVerse – Break Time!";
                 updateStreakOnSessionComplete();
                 return;
             }
@@ -43,11 +50,13 @@ function startButton() {
         }
         updateDisplay();
     }, 1000);
+    updateDisplay();
 }
 
 function stopButton() {
     clearInterval(timer);
     isRunning = false;
+    updateDisplay();
 }
 
 function resetButton() {
@@ -55,9 +64,9 @@ function resetButton() {
     isRunning = false;
     minutes = 25;
     seconds = 0;
-    updateDisplay();
     distractionMessage.innerHTML = "";
     quoteBox.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+    updateDisplay();
 }
 
 function gotdistracted() {
