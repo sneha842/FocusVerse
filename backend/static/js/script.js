@@ -3,12 +3,12 @@ let minutes = 25;
 let seconds = 0;
 let isRunning = false;
 
-const minutesDisplay = document.getElementById("minutes");
-const secondsDisplay = document.getElementById("seconds");
-const distractionMessage = document.getElementById("distractionmessage");
-const quoteBox = document.getElementById("quoteBox");
-const bgMusic = document.getElementById("bgMusic");
-const musicSource = document.getElementById("musicSource");
+const minutesDisplay      = document.getElementById("minutes");
+const secondsDisplay      = document.getElementById("seconds");
+const distractionMessage  = document.getElementById("distractionmessage");
+const quoteBox            = document.getElementById("quoteBox");
+const bgMusic             = document.getElementById("bgMusic");
+const musicSource         = document.getElementById("musicSource");
 
 const quotes = [
   "🌿 Stay calm and keep going...",
@@ -76,7 +76,7 @@ function resetButton() {
   isRunning = false;
   minutes = 25;
   seconds = 0;
-  distractionMessage.textContent = "";
+  distractionMessage.innerHTML = "";
   quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
   updateDisplay();
 }
@@ -89,11 +89,11 @@ function controlVolume() {
   const volumeControl = document.getElementById("volumeControl");
   const slider = volumeControl.querySelector("#volumeControlSlider");
   bgMusic.volume = slider.value / 100;
-  
+
   slider.oninput = function() {
     bgMusic.volume = this.value / 100;
   };
-  
+
   slider.addEventListener("input", function () {
     const value = this.value;
     this.style.background = `linear-gradient(to right, rgb(150, 73, 5) ${value}%, #ccc ${value}%)`;
@@ -114,7 +114,7 @@ function toggleMusic() {
 
 function changeMusic(theme) {
   const volumeControl = document.getElementById("volumeControl");
-  
+
   if (!musicMap[theme]) return;
 
   if (currentTheme === theme) {
