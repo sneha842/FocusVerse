@@ -8,6 +8,7 @@ const secondsDisplay = document.getElementById("seconds");
 const distractionMessage = document.getElementById("distractionmessage");
 const quoteBox = document.getElementById("quoteBox");
 const bgMusic = document.getElementById("bgMusic");
+const streakDisplay = document.getElementById("streakDisplay");
 
 const quotes = [
     "🌿 Stay calm and keep going...",
@@ -32,6 +33,7 @@ function startButton() {
                 clearInterval(timer);
                 isRunning = false;
                 alert("⏰ Time's up! Great job! Take a short break.");
+                updateStreakOnSessionComplete();
                 return;
             }
             minutes--;
@@ -73,3 +75,45 @@ function toggleMusic() {
 function toggleTheme() {
     document.body.classList.toggle("dark-mode");
 }
+
+function getTodayDateString() {
+    const now = new Date();
+    return now.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+function updateStreakDisplay() {
+    const streak = Number(localStorage.getItem('focusStreak')) || 0;
+    if (streak > 0) {
+        streakDisplay.textContent = `🔥 ${streak}-day streak`;
+    } else {
+        streakDisplay.textContent = '';
+    }
+}
+
+function updateStreakOnSessionComplete() {
+    const lastCompleted = localStorage.getItem('lastFocusDate');
+    const today = getTodayDateString();
+    let streak = Number(localStorage.getItem('focusStreak')) || 0;
+    if (lastCompleted === today) {
+        // Already counted today
+        return;
+    }
+    if (lastCompleted) {
+        const lastDate = new Date(lastCompleted);
+        const todayDate = new Date(today);
+        const diff = (todayDate - lastDate) / (1000 * 60 * 60 * 24);
+        if (diff === 1) {
+            streak += 1;
+        } else if (diff > 1) {
+            streak = 1;
+        } // diff < 1 means user is in the same day, already handled
+    } else {
+        streak = 1;
+    }
+    localStorage.setItem('focusStreak', streak);
+    localStorage.setItem('lastFocusDate', today);
+    updateStreakDisplay();
+}
+
+// Call updateStreakDisplay on load
+updateStreakDisplay();
