@@ -90,7 +90,7 @@ body {
   font-weight: 600; /* Slightly bolder text for better visibility */
   text-decoration: none; /* Removes underline from button text */
   outline: none; /* Removes outline on focus */
-  transition: background-color 0.3s ease, transform 0.2s ease
+  transition: background-color 0.3s ease, transform 0.2s ease;
 
 }
 
@@ -127,8 +127,8 @@ body {
 }
 
 .dark-mode .container{
-  background-color: #333
-  color#fff
+  background-color: #333;
+  color: #fff;
 }
 
 #volumeControl{
