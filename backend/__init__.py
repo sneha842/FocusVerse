@@ -2,7 +2,7 @@ import os
 from flask import Flask
 
 def create_app():
-    base_dir = os.path.abspath(os.path.dirname(_file_))
+    base_dir = os.path.abspath(os.path.dirname(__file__))
 
     app = Flask(
         _name_,
