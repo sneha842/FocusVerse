@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusVerse</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusVerse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
-    <div class="container">
-        <h1>🌌FocusVerse!!</h1>
-        <p>Your Peaceful Portal to Productivity!</p>
+  <div class="container">
+    <h1>🌌FocusVerse!!</h1>
+    <p>Your Peaceful Portal to Productivity!</p>
 
-        <div class="timer">
-            <span id="minutes">25</span> : <span id="seconds">00</span>
-        </div>
-
-        <div class="controls">
-            <button onclick="startButton()">Start</button>
-            <button onclick="stopButton()">Stop</button>
-            <button onclick="resetButton()">Reset</button>
-            <button onclick="gotdistracted()">I Got Distracted 😅</button>
-        </div>
-
-        <div id ="distractionmessage"> </div>
-
-        <div id ="quoteBox">🌿 Stay calm and keep going...</div>
-
-        <div class="music-controls">
-            <audio id="bgMusic" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3" />
-            </audio>
-            <button onclick="toggleMusic()">🎵 Toggle Music</button>
-        </div>
+    <div class="timer">
+      <span id="minutes">25</span> : <span id="seconds">00</span>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+    <div class="controls">
+      <button onclick="startButton()">Start</button>
+      <button onclick="stopButton()">Stop</button>
+      <button onclick="resetButton()">Reset</button>
+      <button onclick="gotdistracted()">I Got Distracted 😅</button>
+    </div>
+
+    <div id="distractionmessage"></div>
+
+    <div id="quoteBox">🌿 Stay calm and keep going...</div>
+
+    <div class="music-controls">
+      <audio id="bgMusic" loop>
+        <source id="musicSource" src="{{ url_for('static', filename='audio/piano.mp3') }}" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <button onclick="toggleMusic()">🎵 Gentle Piano</button>
+      <button onclick="changeMusic('nature')">🍃 Relaxing</button>
+      <button onclick="changeMusic('rain')">🌧 Inspirational</button>
+      <button onclick="changeMusic('piano')">🎹 Lofi</button>
+      <button onclick="changeMusic('campfire')">🔥 Historical</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
