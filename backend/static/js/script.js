@@ -29,19 +29,29 @@ const musicMap = {
 let currentTheme = null;
 
 function updateDisplay() {
-  minutesDisplay.textContent = String(minutes).padStart(2, '0');
-  secondsDisplay.textContent = String(seconds).padStart(2, '0');
+  const mm = String(minutes).padStart(2, '0');
+  const ss = String(seconds).padStart(2, '0');
+  minutesDisplay.textContent = mm;
+  secondsDisplay.textContent = ss;
+
+  if (isRunning) {
+    document.title = `Focus: ${mm}:${ss} remaining`;
+  } else {
+    document.title = "FocusVerse – Ready to begin";
+  }
 }
 
 function startButton() {
   if (isRunning) return;
   isRunning = true;
+
   timer = setInterval(() => {
     if (seconds === 0) {
       if (minutes === 0) {
         clearInterval(timer);
         isRunning = false;
         alert("⏰ Time's up! Great job! Take a short break.");
+        document.title = "FocusVerse – Break Time!";
         return;
       }
       minutes--;
@@ -51,11 +61,14 @@ function startButton() {
     }
     updateDisplay();
   }, 1000);
+
+  updateDisplay();
 }
 
 function stopButton() {
   clearInterval(timer);
   isRunning = false;
+  updateDisplay();
 }
 
 function resetButton() {
@@ -63,39 +76,63 @@ function resetButton() {
   isRunning = false;
   minutes = 25;
   seconds = 0;
+  distractionMessage.textContent = "";
+  quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
   updateDisplay();
-  distractionMessage.innerHTML = "";
-  quoteBox.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
 }
 
 function gotdistracted() {
-  distractionMessage.innerHTML = "🚨 Distraction Detected! Take a breath and refocus ✨";
+  distractionMessage.textContent = "🚨 Distraction Detected! Take a breath and refocus ✨";
+}
+
+function controlVolume() {
+  const volumeControl = document.getElementById("volumeControl");
+  const slider = volumeControl.querySelector("#volumeControlSlider");
+  bgMusic.volume = slider.value / 100;
+  
+  slider.oninput = function() {
+    bgMusic.volume = this.value / 100;
+  };
+  
+  slider.addEventListener("input", function () {
+    const value = this.value;
+    this.style.background = `linear-gradient(to right, rgb(150, 73, 5) ${value}%, #ccc ${value}%)`;
+  });
 }
 
 function toggleMusic() {
+  const volumeControl = document.getElementById("volumeControl");
   if (bgMusic.paused) {
     bgMusic.play();
+    controlVolume();
+    volumeControl.style.display = "inline";
   } else {
     bgMusic.pause();
+    volumeControl.style.display = "none";
   }
 }
 
 function changeMusic(theme) {
+  const volumeControl = document.getElementById("volumeControl");
+  
   if (!musicMap[theme]) return;
 
   if (currentTheme === theme) {
-    // Same theme clicked again - toggle play/pause
     if (bgMusic.paused) {
       bgMusic.play();
     } else {
       bgMusic.pause();
+      volumeControl.style.display = "none";
     }
   } else {
-    // Different theme selected
     currentTheme = theme;
     bgMusic.pause();
     musicSource.src = musicMap[theme];
     bgMusic.load();
     bgMusic.play();
+    controlVolume();
+    volumeControl.style.display = "inline";
   }
 }
+
+updateDisplay();
