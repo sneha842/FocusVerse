@@ -17,6 +17,7 @@ const quotes = [
   "🚀 Focus fuels success!",
   "🔥 Don’t stop now!"
 ];
+
 function updateDisplay() {
   const mm = String(minutes).padStart(2, '0');
   const ss = String(seconds).padStart(2, '0');
