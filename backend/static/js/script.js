@@ -5,10 +5,12 @@ let isRunning = false;
 
 const minutesDisplay      = document.getElementById("minutes");
 const secondsDisplay      = document.getElementById("seconds");
+const timerDisplay = document.getElementById("timerDisplay");
 const distractionMessage  = document.getElementById("distractionmessage");
 const quoteBox            = document.getElementById("quoteBox");
 const bgMusic             = document.getElementById("bgMusic");
-
+const customMinutesInput = document.getElementById("customMinutes");
+const volumeControl = document.getElementById("volumeControl");
 const quotes = [
   "🌿 Stay calm and keep going...",
   "✨ One step at a time!",
@@ -20,18 +22,36 @@ const quotes = [
 function updateDisplay() {
   const mm = String(minutes).padStart(2, '0');
   const ss = String(seconds).padStart(2, '0');
-  minutesDisplay.textContent = mm;
-  secondsDisplay.textContent = ss;
 
-  if (isRunning) {
-    document.title = `Focus: ${mm}:${ss} remaining`;
-  } else {
-    document.title = "FocusVerse – Ready to begin";
+  if (minutesDisplay && secondsDisplay) {
+    minutesDisplay.textContent = mm;
+    secondsDisplay.textContent = ss;
   }
+
+  if (timerDisplay) {
+    timerDisplay.textContent = `${mm} : ${ss}`;
+  }
+
+  document.title = isRunning ? `Focus: ${mm}:${ss} remaining` : "FocusVerse – Ready to begin";
 }
 
 function startButton() {
   if (isRunning) return;
+
+  const inputMinutes = parseInt(customMinutesInput.value);
+  if (isNaN(inputMinutes) || inputMinutes <= 0) {
+    alert("Please enter valid minutes!");
+    return;
+  }
+
+  minutes = inputMinutes;
+  seconds = 0;
+  updateDisplay();
+
+  customMinutesInput.style.display = "none";
+  document.getElementById("minute").style.display = "none";
+  if (timerDisplay) timerDisplay.style.display = "inline-block";
+
   isRunning = true;
 
   timer = setInterval(() => {
@@ -50,8 +70,6 @@ function startButton() {
     }
     updateDisplay();
   }, 1000);
-
-  updateDisplay();
 }
 
 function stopButton() {
@@ -65,7 +83,11 @@ function resetButton() {
   isRunning = false;
   minutes = 25;
   seconds = 0;
-   distractionMessage.innerHTML = "";
+  customMinutesInput.style.display = "inline-block";
+  document.getElementById("minute").style.display = "inline-block";
+  if (timerDisplay) timerDisplay.style.display = "none";
+  customMinutesInput.value = 25;
+  distractionMessage.innerHTML = "";
   quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
   updateDisplay();
 }

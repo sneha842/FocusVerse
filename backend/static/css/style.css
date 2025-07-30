@@ -183,3 +183,24 @@ body {
 .slider:focus {
   outline: none;
 }
+
+.timer-input {
+    border: none;
+    background-color: rgb(236, 163, 85);
+    font-size: 2em;
+    text-align: center;
+    color: #7d1a1a;
+    width: 20%;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.timer-display {
+    font-size: 2em;
+    color: #7d1a1a;
+}
+
+.minute {
+  font-size: 1.5em;
+  color: #7d1a1a;
+}
