@@ -87,8 +87,6 @@ function controlVolume() {
     });
 }
 
-
-
 function toggleMusic() {
     const volumeControl = document.getElementById("volumeControl");
     if (bgMusic.paused) {
@@ -100,5 +98,6 @@ function toggleMusic() {
         volumeControl.style.display = "none";
     }
 }
+
 
 updateDisplay();

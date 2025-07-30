@@ -90,7 +90,7 @@ body {
   font-weight: 600; /* Slightly bolder text for better visibility */
   text-decoration: none; /* Removes underline from button text */
   outline: none; /* Removes outline on focus */
-  transition: background-color 0.3s ease, transform 0.2s ease
+  transition: background-color 0.3s ease, transform 0.2s ease;
 
 }
 
@@ -120,13 +120,66 @@ body {
   transform: scale(1.05);
 }
 
-.dark-mode{
+.dark-mode {
   background-color: #1e1e1e;
-  color: #ffffff
+  color: #ffffff;
   background-image: none;
 }
 
+
 .dark-mode .container{
-  background-color: #333
-  color#fff
+  background-color: #333;
+  color: #fff;
+}
+
+#volumeControl{
+  display: none;
+}
+
+#volumeControlSlider{
+  color: #333;
+}
+
+/* Base styling */
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: linear-gradient(to right, rgb(150, 73, 5) 30%, #ccc 30%);
+  outline: none;
+  transition: background 450ms ease-in;
+}
+
+/* Chrome, Safari, newer Edge - Thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid rgb(150, 73, 5);
+  cursor: pointer;
+  margin-top: 1px; /* align thumb center */
+}
+
+/* Firefox - Track */
+.slider::-moz-range-track {
+  background: transparent;
+}
+
+/* Firefox - Thumb */
+.slider::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid rgb(150, 73, 5);
+  cursor: pointer;
+}
+
+/* Dynamic background fill on input */
+.slider:focus {
+  outline: none;
 }
