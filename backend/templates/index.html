@@ -41,6 +41,20 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/static/js/service-worker.js')
+            .then(reg => {
+              console.log("✅ Service Worker registered", reg);
+            })
+            .catch(err => {
+              console.error("❌ Service Worker registration failed:", err);
+            });
+        });
+      }
+    </script>
 
 </body>
 </html>
