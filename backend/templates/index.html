@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 <body>
     <div class="container">
-        <h1>🌌FocusVerse!!</h1>
+        <h1>🌌 FocusVerse!!</h1>
         <p>Your Peaceful Portal to Productivity!</p>
 
         <div class="timer">
@@ -23,18 +22,28 @@
             <button onclick="gotdistracted()">I Got Distracted 😅</button>
         </div>
 
-        <div id ="distractionmessage"> </div>
-
-        <div id ="quoteBox">🌿 Stay calm and keep going...</div>
+        <div id="distractionmessage"></div>
+        <div id="quoteBox">🌿 Stay calm and keep going...</div>
 
         <div class="music-controls">
             <audio id="bgMusic" loop>
                 <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3" />
             </audio>
-            <button onclick="toggleMusic()">🎵 Toggle Music</button>
+            <button onclick="toggleMusic()">🎵 Toggle Background Music</button>
         </div>
-    </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+        <div class="mood-controls">
+            <p>Select Your Mood 🎧</p>
+            <button onclick="toggleMood('relaxed')">😌 Relaxed</button>
+            <button onclick="toggleMood('focused')">🎯 Focused</button>
+            <button onclick="toggleMood('energetic')">⚡ Energetic</button>
+            <button onclick="toggleMood('calm')">🌊 Calm</button>
+            <button onclick="toggleMood('motivated')">🔥 Motivated</button>
+        </div>
+
+        <audio id="moodAudio" loop></audio>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
