@@ -12,7 +12,7 @@ const streakDisplay = document.getElementById("streakDisplay");
 
 //----------------------API for random quotes---------------------------------
 function fetchRandomQuotes(){
-  const url = 'https://api.quotable.io/random?maxLength=100'; // updated to https
+  const url = 'https://corsproxy.io/?https://api.quotable.io/random?maxLength=100';
   fetch(url)
     .then(response => {
       if (!response.ok) throw new Error('Error');
@@ -26,6 +26,7 @@ function fetchRandomQuotes(){
       quoteBox.textContent = "⚠️ Failed to load quote. Stay focused!";
     });
 }
+
 
 //---------------------------------------------------------------------------
 
