@@ -112,7 +112,7 @@ function toggleMusic() {
         bgMusic.pause();
         volumeControl.style.display = "none";
     }
-    
++
 }
 
 function toggleTheme() {
