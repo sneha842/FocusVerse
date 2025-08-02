@@ -24,6 +24,7 @@ body {
     line-height: 1.6;
     text-align: center;
     padding: 20px;
+    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -94,12 +95,17 @@ body {
     position: relative;
     text-align: center;
     padding: 40px;
+    background-color: rgb(236, 163, 85);
     background: rgba(253, 191, 125, 0.85); /* Lighter */
     border-radius: 20px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 500px;
     width: 100%;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
     margin: 20px;
+    position: relative;
     z-index: 1;
     overflow: hidden;  /* ✅ Prevent floating text from escaping */
     animation: containerFloat 3.5s ease-in-out infinite;
