@@ -9,6 +9,7 @@ const timerDisplay = document.getElementById("timerDisplay");
 const distractionMessage  = document.getElementById("distractionmessage");
 const quoteBox            = document.getElementById("quoteBox");
 const bgMusic             = document.getElementById("bgMusic");
+const alarmSound          = document.getElementById("alarmSound"); // 🔔 New line for timer end sound
 const customMinutesInput = document.getElementById("customMinutes");
 const volumeControl = document.getElementById("volumeControl");
 const quotes = [
@@ -59,6 +60,7 @@ function startButton() {
       if (minutes === 0) {
         clearInterval(timer);
         isRunning = false;
+        alarmSound.play();
         alert("⏰ Time's up! Great job! Take a short break.");
         document.title = "FocusVerse – Break Time!";
         return;
@@ -111,7 +113,7 @@ function updateDisplay() {
 
     updateDisplay();
   }, 1000);
-
+  updateDisplay();
 }
 
 function startButton() {
