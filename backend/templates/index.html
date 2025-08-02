@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🌌FocusVerse!!</h1>
+        <h1 class="focus-title">FocusVerse</h1>
         <p>Your Peaceful Portal to Productivity!</p>
 
         <div class="timer">
@@ -42,6 +42,28 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <script>
+       let vantaEffect = VANTA.WAVES({
+        el: "body",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: window.innerHeight,   // ✅ Set to full viewport height
+        minWidth: window.innerWidth,     // ✅ Set to full viewport width
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xff9966,
+        shininess: 50,
+        waveHeight: 20,
+        waveSpeed: 1.0
+    });
+    window.addEventListener('resize', () => {
+        if (vantaEffect) {
+            vantaEffect.resize();
+        }
+    });
+    </script>
 
 </body>
 </html>
