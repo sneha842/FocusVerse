@@ -10,6 +10,24 @@ const quoteBox = document.getElementById("quoteBox");
 const bgMusic = document.getElementById("bgMusic");
 const streakDisplay = document.getElementById("streakDisplay");
 
+//----------------------API for random quotes---------------------------------
+function fetchRandomQuotes(){
+  const url = 'http://api.quotable.io/random?maxLength=100';
+  fetch(url)
+    .then (response=> {
+      if (!response.ok) throw new Error('Error');
+      return response.json();
+    })
+    .then (data=>{
+      quoteBox.textContent = `"${data.content} - ${data.author}"`;
+    })
+    .catch(error=>{
+      console.error('Error:', error);
+      quoteBox.textContent = error;
+    })
+}
+//---------------------------------------------------------------------------
+
 const quotes = [
     "🌿 Stay calm and keep going...",
     "✨ One step at a time!",
@@ -129,7 +147,9 @@ function displayStreak() {
     }
 }
 
-// Call this once when the page loads to show the streak
+
+updateDisplay();
+fetchRandomQuotes();
 window.onload = function () {
     displayStreak();
-};
+}
