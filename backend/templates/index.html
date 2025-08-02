@@ -12,11 +12,14 @@
         <h1 class="focus-title">FocusVerse</h1>
         <p>Your Peaceful Portal to Productivity!</p>
 
-        <div class="timer">
-            <span id="minutes">25</span> : <span id="seconds">00</span>
+        <div id="timerContainer" class="timer-container">
+            <input id="customMinutes" type="number" value="25" min="1" class="timer-input" /><span id = "minute" class = "minute">minutes</span>
+            <div id="timerDisplay" class="timer-display" style="display: none;">25 : 00</div>
         </div>
+
         
         <div id="streakDisplay" style="font-size: 1.2rem; margin-bottom: 10px; color: #ff5722; font-weight: bold;"></div>
+
 
         <div class="controls">
             <button onclick="startButton()">Start</button>
