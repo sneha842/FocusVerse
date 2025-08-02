@@ -1,3 +1,8 @@
+/* ./static/css/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *{
     margin: 0;
     padding: 0;
@@ -19,26 +24,133 @@ body {
     line-height: 1.6;
     text-align: center;
     padding: 20px;
-    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
+.focus-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #cb5b11;
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.407);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.6s ease, text-shadow 0.6s ease;
+    cursor: pointer;
+    animation: floatEffect 2.5s ease-in-out infinite alternate; 
+    margin: 0 auto;
+}
+
+
+/* Hover / Touch 3D Floating effect */
+.focus-title:hover {
+    transform: translateY(-10px) scale(1.05);
+    text-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state to bring it back */
+.focus-title:active {
+    transform: translateY(0px) scale(1);
+}
+
+/* Glowing effect when hovered */
+.focus-title:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+    pointer-events: none;
+}
+
+/* Keyframes for subtle floating effect */
+@keyframes floatEffect {
+    0% {
+        transform: translateY(0) scale(1);
+        text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: translateY(-6px) scale(1.02);
+        text-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+}
+
 .container {
+    position: relative;
     text-align: center;
     padding: 40px;
     background-color: rgb(236, 163, 85);
+    background: rgba(253, 191, 125, 0.85); /* Lighter */
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 500px;
     width: 100%;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
     margin: 20px;
     position: relative;
+    z-index: 1;
+    overflow: hidden;  /* ✅ Prevent floating text from escaping */
+    animation: containerFloat 3.5s ease-in-out infinite;
+    transition: transform 0.4s ease;
 }
+
+/* Hover effect for extra lift */
+.container:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Animated gradient border */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(135deg, #ff9966, #ff5e62, #f5af19, #f12711);
+    background-size: 400%;
+    animation: borderGlow 8s linear infinite;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    z-index: -1;
+}
+
+/* Floating effect (gentle up and down motion) */
+@keyframes containerFloat {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.01); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Gradient border animation */
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 .timer {
     font-size: 48px;
@@ -178,6 +290,16 @@ body {
   border: 2px solid rgb(150, 73, 5);
   cursor: pointer;
 }
+
+#vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
 
 /* Dynamic background fill on input */
 .slider:focus {
