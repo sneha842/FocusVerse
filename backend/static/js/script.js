@@ -12,7 +12,7 @@ const streakDisplay = document.getElementById("streakDisplay");
 
 //----------------------API for random quotes---------------------------------
 function fetchRandomQuotes(){
-  const url = 'http://api.quotable.io/random?maxLength=100';
+  const url = 'https://api.quotable.io/random?maxLength=100';
   fetch(url)
     .then (response=> {
       if (!response.ok) throw new Error('Error');
