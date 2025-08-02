@@ -5,17 +5,17 @@ let isRunning = false;
 let sessionStartTime = null;
 let isOnline = navigator.onLine;
 
-const minutesDisplay = document.getElementById("minutes");
-const secondsDisplay = document.getElementById("seconds");
-const timerDisplay = document.getElementById("timerDisplay");
-const distractionMessage = document.getElementById("distractionmessage");
-const quoteBox = document.getElementById("quoteBox");
-const bgMusic = document.getElementById("bgMusic");
-const alarmSound = document.getElementById("alarmSound");
-const customMinutesInput = document.getElementById("customMinutes");
-const streakDisplay = document.getElementById("streakDisplay");
-const volumeSlider = document.getElementById("volumeControlSlider");
-const volumeControl = document.getElementById("volumeControl");
+const minutesDisplay      = document.getElementById("minutes");
+const secondsDisplay      = document.getElementById("seconds");
+const timerDisplay        = document.getElementById("timerDisplay");
+const distractionMessage  = document.getElementById("distractionmessage");
+const quoteBox            = document.getElementById("quoteBox");
+const bgMusic             = document.getElementById("bgMusic");
+const alarmSound          = document.getElementById("alarmSound");
+const customMinutesInput  = document.getElementById("customMinutes");
+const streakDisplay       = document.getElementById("streakDisplay");
+const volumeSlider        = document.getElementById("volumeControlSlider");
+const volumeControl       = document.getElementById("volumeControl");
 
 const fallbackQuotes = [
   "🌿 Stay calm and keep going...",
@@ -28,13 +28,16 @@ const fallbackQuotes = [
 function updateDisplay() {
   const mm = String(minutes).padStart(2, '0');
   const ss = String(seconds).padStart(2, '0');
+
   if (minutesDisplay && secondsDisplay) {
     minutesDisplay.textContent = mm;
     secondsDisplay.textContent = ss;
   }
+
   if (timerDisplay) {
     timerDisplay.textContent = `${mm} : ${ss}`;
   }
+
   document.title = isRunning ? `Focus: ${mm}:${ss} remaining` : "FocusVerse – Ready to begin";
 }
 
@@ -53,7 +56,7 @@ function startButton() {
 
   customMinutesInput.style.display = "none";
   document.getElementById("minute").style.display = "none";
-  if (timerDisplay) timerDisplay.style.display = "inline-block";
+  timerDisplay.style.display = "inline-block";
 
   isRunning = true;
   sessionStartTime = new Date();
@@ -82,9 +85,7 @@ function startButton() {
 function stopButton() {
   clearInterval(timer);
   isRunning = false;
-  if (sessionStartTime) {
-    saveSession(false);
-  }
+  if (sessionStartTime) saveSession(false);
   updateDisplay();
 }
 
@@ -97,9 +98,9 @@ function resetButton() {
 
   customMinutesInput.style.display = "inline-block";
   document.getElementById("minute").style.display = "inline-block";
-  if (timerDisplay) timerDisplay.style.display = "none";
-
+  timerDisplay.style.display = "none";
   customMinutesInput.value = 25;
+
   distractionMessage.innerHTML = "";
   quoteBox.textContent = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
   updateDisplay();

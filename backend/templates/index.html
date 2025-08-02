@@ -27,7 +27,6 @@
     </div>
 
     <div id="distractionmessage"></div>
-
     <div id="quoteBox">🌿 Stay calm and keep going...</div>
 
     <div class="music-controls">
@@ -45,9 +44,8 @@
     <audio id="alarmSound" src="https://notificationsounds.com/storage/sounds/file-sounds-1150-pristine.mp3" preload="auto"></audio>
   </div>
 
+  <!-- Scripts -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-  <!-- Vanta.js Background -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
   <script>
@@ -70,7 +68,7 @@
     });
   </script>
 
-  <!-- Offline Support -->
+  <!-- Service Worker for Offline Support -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
