@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -57,6 +58,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   gap: 12px;
   margin-top: 20px;
   background-color: rgba(255, 255, 255, 0.85);
@@ -86,6 +88,7 @@ h1 {
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
 }
 
 .controls button:hover {
@@ -95,6 +98,7 @@ h1 {
 
 .music-controls {
   margin-top: 30px;
+
 }
 
 .music-controls button {
@@ -107,9 +111,11 @@ h1 {
   cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   font-family: inherit;
+
 }
 
 .music-controls button:hover {
@@ -184,4 +190,5 @@ h1 {
 .dark-mode .music-controls button:hover,
 .dark-mode .mood-controls button:hover {
   background-color: #777 !important;
+
 }

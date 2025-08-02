@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 <body>
     <div class="container">
@@ -14,6 +15,7 @@
         <div class="timer">
             <span id="minutes">25</span> : <span id="seconds">00</span>
         </div>
+        <div id="streakDisplay" style="font-size: 1.2em; margin-bottom: 10px; color: #e25822; font-weight: bold;"></div>
 
         <div class="controls">
             <button onclick="startButton()">Start</button>
@@ -39,6 +41,7 @@
             <button onclick="toggleMood('energetic')">⚡ Energetic</button>
             <button onclick="toggleMood('calm')">🌊 Calm</button>
             <button onclick="toggleMood('motivated')">🔥 Motivated</button>
+
         </div>
 
         <audio id="moodAudio" loop></audio>

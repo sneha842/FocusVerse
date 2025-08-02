@@ -10,12 +10,13 @@ const quoteBox = document.getElementById("quoteBox");
 const bgMusic = document.getElementById("bgMusic");
 const moodAudio = document.getElementById("moodAudio");
 
+
 const quotes = [
-  "🌿 Stay calm and keep going...",
-  "✨ One step at a time!",
-  "💪 You’re doing great!",
-  "🚀 Focus fuels success!",
-  "🔥 Don’t stop now!"
+    "🌿 Stay calm and keep going...",
+    "✨ One step at a time!",
+    "💪 You’re doing great!",
+    "🚀 Focus fuels success!",
+    "🔥 Don’t stop now!"
 ];
 
 const moodTracks = {
@@ -67,10 +68,24 @@ function resetButton() {
   updateDisplay();
   distractionMessage.innerHTML = "";
   quoteBox.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+
 }
 
 function gotdistracted() {
   distractionMessage.innerHTML = "🚨 Distraction Detected! Take a breath and refocus ✨";
+}
+
+function controlVolume() {
+    var volumeControl = document.getElementById("volumeControl");
+    var slider = volumeControl.querySelector("#volumeControlSlider");
+    bgMusic.volume = slider.value / 100;
+    slider.oninput = function () {
+        bgMusic.volume = this.value / 100;
+    };
+    slider.addEventListener("input", function () {
+        const value = this.value;
+        this.style.background = `linear-gradient(to right, rgb(150, 73, 5) ${value}%, #ccc ${value}%)`;
+    });
 }
 
 function toggleMusic() {
