@@ -124,7 +124,7 @@ function displayStreak() {
     let streak = localStorage.getItem('focusStreak') || 0;
     const streakDisplay = document.getElementById('streakDisplay');
     if (streakDisplay) {
-        streakDisplay.textContent = 🔥 Your Focus Streak: ${streak} sessions;
+        streakDisplay.textContent = `🔥 Your Focus Streak: ${streak} sessions`;
     }
 }
 
