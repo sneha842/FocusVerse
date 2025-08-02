@@ -12,20 +12,21 @@ const streakDisplay = document.getElementById("streakDisplay");
 
 //----------------------API for random quotes---------------------------------
 function fetchRandomQuotes(){
-  const url = 'https://api.quotable.io/random?maxLength=100';
+  const url = 'https://api.quotable.io/random?maxLength=100'; // updated to https
   fetch(url)
-    .then (response=> {
+    .then(response => {
       if (!response.ok) throw new Error('Error');
       return response.json();
     })
-    .then (data=>{
+    .then(data => {
       quoteBox.textContent = `"${data.content} - ${data.author}"`;
     })
-    .catch(error=>{
+    .catch(error => {
       console.error('Error:', error);
-      quoteBox.textContent = error;
-    })
+      quoteBox.textContent = "⚠️ Failed to load quote. Stay focused!";
+    });
 }
+
 //---------------------------------------------------------------------------
 
 const quotes = [
