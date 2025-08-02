@@ -1,102 +1,104 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 body {
-    align-items: center;
-    background-color: antiquewhite;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    color: rgb(147, 19, 19);
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: center;
-    padding: 20px;
-    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  align-items: center;
+  background-color: antiquewhite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: rgb(147, 19, 19);
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 20px;
+  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .container {
-    text-align: center;
-    padding: 40px;
-    background-color: rgb(236, 163, 85);
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    margin: 20px;
-    position: relative;
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(236, 163, 85, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  margin: 20px auto;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #6b1d1d;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 .timer {
-    font-size: 48px;
-    margin: 20px 0;
-    color: rgb(147, 19, 19);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 56px;
+  margin: 25px 0;
+  color: rgb(147, 19, 19);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; /* Equal spacing between buttons */
+
+  gap: 12px;
   margin-top: 20px;
-  position: relative;
-  z-index: 1; /* Ensures controls are above the container background */
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ensures controls take full width of container */
-  max-width: 400px; /* Limits the width of controls */
-  margin: 0 auto; /* Centers the controls within the container */
-  padding: 20px; /* Adds padding around the controls */
-  box-sizing: border-box; /* Ensures padding is included in width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .controls button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   background-color: #ffb380;
   color: white;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  min-width: 120px; /* makes all buttons same width */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-weight: bold; /* Makes button text bold */
-  text-transform: uppercase; /* Makes button text uppercase */
-  margin: 5px; /* Adds margin around buttons for spacing */
-  flex: 1; /* Allows buttons to grow and fill available space */
-  max-width: 150px; /* Limits the maximum width of buttons */
-  display: flex; /* Ensures buttons are flexible */
-  justify-content: center; /* Centers text within buttons */
-  align-items: center; /* Vertically centers text within buttons */
-  box-sizing: border-box; /* Ensures padding is included in width */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
-  font-weight: 600; /* Slightly bolder text for better visibility */
-  text-decoration: none; /* Removes underline from button text */
-  outline: none; /* Removes outline on focus */
   transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 120px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 5px;
+  flex: 1 1 40%;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
 }
 
 .controls button:hover {
   background-color: #ff8c42;
-  transform: translateY(-2px); /* Adds a slight lift effect on hover */
+  transform: translateY(-2px);
+}
+
+.music-controls {
+  margin-top: 30px;
+
 }
 
 .music-controls button {
@@ -109,15 +111,60 @@ body {
   cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  margin-top: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: inherit;
+
 }
 
 .music-controls button:hover {
   background: linear-gradient(135deg, #ff7e5f, #feb47b);
   transform: scale(1.05);
+}
+
+.mood-controls {
+  margin-top: 20px;
+}
+
+.mood-controls p {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #6b1d1d;
+}
+
+.mood-controls button {
+  padding: 10px 16px;
+  font-size: 15px;
+  background-color: #ffcc99;
+  color: #333;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mood-controls button:hover {
+  background-color: #ffaa66;
+  transform: translateY(-2px);
+}
+
+#distractionmessage {
+  margin-top: 15px;
+  font-size: 16px;
+  color: crimson;
+  font-weight: bold;
+}
+
+#quoteBox {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 16px;
+  color: #3e1f1f;
 }
 
 .dark-mode {
@@ -126,60 +173,22 @@ body {
   background-image: none;
 }
 
-
-.dark-mode .container{
+.dark-mode .container {
   background-color: #333;
   color: #fff;
 }
 
-#volumeControl{
-  display: none;
+.dark-mode .controls button,
+.dark-mode .music-controls button,
+.dark-mode .mood-controls button {
+  background-color: #555 !important;
+  color: #fff;
+  border: 1px solid #888;
 }
 
-#volumeControlSlider{
-  color: #333;
-}
+.dark-mode .controls button:hover,
+.dark-mode .music-controls button:hover,
+.dark-mode .mood-controls button:hover {
+  background-color: #777 !important;
 
-/* Base styling */
-.slider {
-  appearance: none;
-  -webkit-appearance: none;
-  height: 5px;
-  border-radius: 5px;
-  background: linear-gradient(to right, rgb(150, 73, 5) 30%, #ccc 30%);
-  outline: none;
-  transition: background 450ms ease-in;
-}
-
-/* Chrome, Safari, newer Edge - Thumb */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid rgb(150, 73, 5);
-  cursor: pointer;
-  margin-top: 1px; /* align thumb center */
-}
-
-/* Firefox - Track */
-.slider::-moz-range-track {
-  background: transparent;
-}
-
-/* Firefox - Thumb */
-.slider::-moz-range-thumb {
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid rgb(150, 73, 5);
-  cursor: pointer;
-}
-
-/* Dynamic background fill on input */
-.slider:focus {
-  outline: none;
 }
