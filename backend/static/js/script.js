@@ -23,20 +23,16 @@ function fetchRandomQuotes(){
     })
     .catch(error => {
       console.error('Error:', error);
-      quoteBox.textContent = "⚠️ Failed to load quote. Stay focused!";
+      const fallbackQuotes = [
+        "🌿 Stay calm and keep going...",
+        "✨ One step at a time!",
+        "💪 You’re doing great!",
+        "🚀 Focus fuels success!",
+        "🔥 Don’t stop now!"
+      ];
+      quoteBox.textContent = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
     });
 }
-
-
-//---------------------------------------------------------------------------
-
-const quotes = [
-    "🌿 Stay calm and keep going...",
-    "✨ One step at a time!",
-    "💪 You’re doing great!",
-    "🚀 Focus fuels success!",
-    "🔥 Don’t stop now!"
-];
 
 function updateDisplay() {
     const mm = String(minutes).padStart(2, '0');
