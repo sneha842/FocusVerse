@@ -1,46 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusVerse</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusVerse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>🌌FocusVerse!!</h1>
-        <p>Your Peaceful Portal to Productivity!</p>
+  <div class="container">
+    <h1 class="focus-title">FocusVerse</h1>
+    <p>Your Peaceful Portal to Productivity!</p>
 
-        <div class="timer">
-            <span id="minutes">25</span> : <span id="seconds">00</span>
-        </div>
-        <div id="streakDisplay" style="font-size: 1.2em; margin-bottom: 10px; color: #e25822; font-weight: bold;"></div>
-
-        <div class="controls">
-            <button onclick="startButton()">Start</button>
-            <button onclick="stopButton()">Stop</button>
-            <button onclick="resetButton()">Reset</button>
-            <button onclick="gotdistracted()">I Got Distracted 😅</button>
-        </div>
-
-        <div id ="distractionmessage"> </div>
-
-        <div id ="quoteBox">🌿 Stay calm and keep going...</div>
-
-        <div class="music-controls">
-            <audio id="bgMusic" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3" />
-            </audio>
-            <button onclick="toggleMusic()">🎵 Toggle Music</button>
-            <div id = "volumeControl">
-                <br/>
-                <span>🔊</span>
-                <input type="range" min="0" max="100" value="30" class="slider" id="volumeControlSlider" />
-            </div>
-        </div>
+    <div id="timerContainer" class="timer-container">
+      <input id="customMinutes" type="number" value="25" min="1" class="timer-input" />
+      <span id="minute" class="minute">minutes</span>
+      <div id="timerDisplay" class="timer-display" style="display: none;">25 : 00</div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+    <div id="streakDisplay" style="font-size: 1.2rem; margin-bottom: 10px; color: #ff5722; font-weight: bold;"></div>
+
+    <div class="controls">
+      <button onclick="startButton()">Start</button>
+      <button onclick="stopButton()">Stop</button>
+      <button onclick="resetButton()">Reset</button>
+      <button onclick="gotdistracted()">I Got Distracted 😅</button>
+    </div>
+
+    <div id="distractionmessage"></div>
+
+    <div id="quoteBox">🌿 Stay calm and keep going...</div>
+
+    <div class="music-controls">
+      <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3" />
+      </audio>
+      <button onclick="toggleMusic()">🎵 Toggle Music</button>
+      <div id="volumeControl" style="display: none;">
+        <br/>
+        <span>🔊</span>
+        <input type="range" min="0" max="100" value="30" class="slider" id="volumeControlSlider" />
+      </div>
+    </div>
+
+    <audio id="alarmSound" src="https://notificationsounds.com/storage/sounds/file-sounds-1150-pristine.mp3" preload="auto"></audio>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <!-- Vanta.js Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+  <script>
+    let vantaEffect = VANTA.WAVES({
+      el: "body",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: window.innerHeight,
+      minWidth: window.innerWidth,
+      scale: 1.8,
+      scaleMobile: 1.00,
+      color: 0xff9966,
+      shininess: 50,
+      waveHeight: 20,
+      waveSpeed: 1.18,
+    });
+
+    window.addEventListener('resize', () => {
+      if (vantaEffect) vantaEffect.resize();
+    });
+  </script>
+
+  <!-- Offline Support -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/js/service-worker.js')
+          .then(reg => {
+            console.log("✅ Service Worker registered", reg);
+          })
+          .catch(err => {
+            console.error("❌ Service Worker registration failed:", err);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
