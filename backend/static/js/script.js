@@ -106,39 +106,29 @@ function getTodayDateString() {
     const now = new Date();
     return now.toISOString().split('T')[0]; // YYYY-MM-DD
 }
-
-function updateStreakDisplay() {
-    const streak = Number(localStorage.getItem('focusStreak')) || 0;
-    if (streak > 0) {
-        streakDisplay.textContent = `🔥 ${streak}-day streak`;
-    } else {
-        streakDisplay.textContent = '';
-    }
-}
-
 function updateStreakOnSessionComplete() {
-    const lastCompleted = localStorage.getItem('lastFocusDate');
-    const today = getTodayDateString();
-    let streak = Number(localStorage.getItem('focusStreak')) || 0;
-    if (lastCompleted === today) {
-        return;
-    }
-    if (lastCompleted) {
-        const lastDate = new Date(lastCompleted);
-        const todayDate = new Date(today);
-        const diff = (todayDate - lastDate) / (1000 * 60 * 60 * 24);
-        if (diff === 1) {
-            streak += 1;
-        } else if (diff > 1) {
-            streak = 1;
-        }
-    } else {
+    let streak = localStorage.getItem('focusStreak');
+
+    // If no streak exists, start at 1
+    if (!streak) {
         streak = 1;
+    } else {
+        streak = parseInt(streak) + 1;
     }
+
     localStorage.setItem('focusStreak', streak);
-    localStorage.setItem('lastFocusDate', today);
-    updateStreakDisplay();
+    displayStreak();
 }
 
-// Call updateStreakDisplay on load
-updateStreakDisplay();
+function displayStreak() {
+    let streak = localStorage.getItem('focusStreak') || 0;
+    const streakDisplay = document.getElementById('streakDisplay');
+    if (streakDisplay) {
+        streakDisplay.textContent = 🔥 Your Focus Streak: ${streak} sessions;
+    }
+}
+
+// Call this once when the page loads to show the streak
+window.onload = function () {
+    displayStreak();
+};
