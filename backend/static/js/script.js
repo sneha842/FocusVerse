@@ -9,6 +9,7 @@ const distractionMessage = document.getElementById("distractionmessage");
 const quoteBox = document.getElementById("quoteBox");
 const bgMusic = document.getElementById("bgMusic");
 const streakDisplay = document.getElementById("streakDisplay");
+const timerElement = document.querySelector(".timer");
 
 const quotes = [
     "🌿 Stay calm and keep going...",
@@ -23,6 +24,7 @@ function updateDisplay() {
     const ss = String(seconds).padStart(2, '0');
     minutesDisplay.textContent = mm;
     secondsDisplay.textContent = ss;
+
     if (isRunning) {
         document.title = `Focus: ${mm}:${ss} remaining`;
     } else {
@@ -33,11 +35,14 @@ function updateDisplay() {
 function startButton() {
     if (isRunning) return;
     isRunning = true;
+    timerElement.classList.add("running"); // ✅ Highlight timer when running
+
     timer = setInterval(() => {
         if (seconds === 0) {
             if (minutes === 0) {
                 clearInterval(timer);
                 isRunning = false;
+                timerElement.classList.remove("running");
                 alert("⏰ Time's up! Great job! Take a short break.");
                 document.title = "FocusVerse – Break Time!";
                 updateStreakOnSessionComplete();
@@ -50,12 +55,14 @@ function startButton() {
         }
         updateDisplay();
     }, 1000);
+
     updateDisplay();
 }
 
 function stopButton() {
     clearInterval(timer);
     isRunning = false;
+    timerElement.classList.remove("running"); // ✅ Remove highlight when stopped
     updateDisplay();
 }
 
@@ -66,6 +73,7 @@ function resetButton() {
     seconds = 0;
     distractionMessage.innerHTML = "";
     quoteBox.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+    timerElement.classList.remove("running");
     updateDisplay();
 }
 
@@ -74,20 +82,18 @@ function gotdistracted() {
 }
 
 function controlVolume() {
-    var volumeControl = document.getElementById("volumeControl");
-    var slider = volumeControl.querySelector("#volumeControlSlider");
+    const volumeControl = document.getElementById("volumeControl");
+    const slider = volumeControl.querySelector("#volumeControlSlider");
+
     bgMusic.volume = slider.value / 100;
     slider.oninput = function () {
         bgMusic.volume = this.value / 100;
+        this.style.background = `linear-gradient(to right, rgb(150, 73, 5) ${this.value}%, #ccc ${this.value}%)`;
     };
-    slider.addEventListener("input", function () {
-        const value = this.value;
-        this.style.background = `linear-gradient(to right, rgb(150, 73, 5) ${value}%, #ccc ${value}%)`;
-    });
 }
 
 function toggleMusic() {
-    var volumeControl = document.getElementById("volumeControl");
+    const volumeControl = document.getElementById("volumeControl");
     if (bgMusic.paused) {
         bgMusic.play();
         controlVolume();
@@ -108,21 +114,21 @@ function getTodayDateString() {
 }
 
 function updateStreakDisplay() {
-    const streak = Number(localStorage.getItem('focusStreak')) || 0;
+    const streak = Number(localStorage.getItem("focusStreak")) || 0;
     if (streak > 0) {
         streakDisplay.textContent = `🔥 ${streak}-day streak`;
     } else {
-        streakDisplay.textContent = '';
+        streakDisplay.textContent = "";
     }
 }
 
 function updateStreakOnSessionComplete() {
-    const lastCompleted = localStorage.getItem('lastFocusDate');
+    const lastCompleted = localStorage.getItem("lastFocusDate");
     const today = getTodayDateString();
-    let streak = Number(localStorage.getItem('focusStreak')) || 0;
-    if (lastCompleted === today) {
-        return;
-    }
+    let streak = Number(localStorage.getItem("focusStreak")) || 0;
+
+    if (lastCompleted === today) return;
+
     if (lastCompleted) {
         const lastDate = new Date(lastCompleted);
         const todayDate = new Date(today);
@@ -135,10 +141,12 @@ function updateStreakOnSessionComplete() {
     } else {
         streak = 1;
     }
-    localStorage.setItem('focusStreak', streak);
-    localStorage.setItem('lastFocusDate', today);
+
+    localStorage.setItem("focusStreak", streak);
+    localStorage.setItem("lastFocusDate", today);
     updateStreakDisplay();
 }
 
-// Call updateStreakDisplay on load
+// Initialize streak on page load
 updateStreakDisplay();
+updateDisplay();
