@@ -12,8 +12,23 @@
         <h1 class="focus-title">FocusVerse</h1>
         <p>Your Peaceful Portal to Productivity!</p>
 
-        <div id="timerContainer" class="timer-container">
-            <input id="customMinutes" type="number" value="25" min="1" class="timer-input" /><span id = "minute" class = "minute">minutes</span>
+            <div id="timerContainer" class="timer-container">
+            <label>
+                Focus:
+                <input id="customFocusMinutes" type="number" value="25" min="1" class="timer-input" />
+                <span class="minute">minutes</span>
+            </label>
+            <br>
+            <label>
+                Break:
+                <input id="customBreakMinutes" type="number" value="5" min="1" class="timer-input" />
+                <span class="minute">minutes</span>
+            </label>
+
+            <div id="sessionType" style="font-size: 1.2rem; margin: 10px 0; color: #4caf50; font-weight: bold;">
+                Focus Time
+            </div>
+
             <div id="timerDisplay" class="timer-display" style="display: none;">25 : 00</div>
         </div>
 
