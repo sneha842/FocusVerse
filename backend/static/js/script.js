@@ -3,6 +3,7 @@ let minutes = 25;
 let seconds = 0;
 let isRunning = false;
 
+let isFocusMode = true;
 const minutesDisplay      = document.getElementById("minutes");
 const secondsDisplay      = document.getElementById("seconds");
 const timerDisplay        = document.getElementById("timerDisplay");
@@ -10,7 +11,8 @@ const distractionMessage  = document.getElementById("distractionmessage");
 const quoteBox            = document.getElementById("quoteBox");
 const bgMusic             = document.getElementById("bgMusic");
 const alarmSound          = document.getElementById("alarmSound");
-const customMinutesInput  = document.getElementById("customMinutes");
+const customFocusInput    = document.getElementById("customFocusMinutes");
+const customBreakInput    = document.getElementById("customBreakMinutes");
 const streakDisplay       = document.getElementById("streakDisplay");
 const volumeSlider        = document.getElementById("volumeControlSlider");
 const volumeControl       = document.getElementById("volumeControl");
@@ -36,24 +38,24 @@ function updateDisplay() {
     timerDisplay.textContent = `${mm} : ${ss}`;
   }
 
-  document.title = isRunning ? `Focus: ${mm}:${ss} remaining` : "FocusVerse – Ready to begin";
+   document.title = isRunning
+    ? `${isFocusMode ? "Focus" : "Break"}: ${mm}:${ss} remaining`
+    : "FocusVerse – Ready to begin";
 }
 
 function startButton() {
   if (isRunning) return;
 
-  const inputMinutes = parseInt(customMinutesInput.value);
-  if (isNaN(inputMinutes) || inputMinutes <= 0) {
-    alert("Please enter valid minutes!");
-    return;
-  }
-
-  minutes = inputMinutes;
+  const focusMinutes = parseInt(customFocusInput.value) || 25;
+  const breakMinutes = parseInt(customBreakInput.value) || 5;
+  minutes = isFocusMode ? focusMinutes : breakMinutes;
   seconds = 0;
   updateDisplay();
 
-  customMinutesInput.style.display = "none";
-  document.getElementById("minute").style.display = "none";
+  customFocusInput.style.display = "none";
+  customBreakInput.style.display = "none";
+  document.querySelectorAll(".minute").forEach(el => el.style.display = "none");
+
   if (timerDisplay) timerDisplay.style.display = "inline-block";
 
   isRunning = true;
@@ -63,10 +65,17 @@ function startButton() {
       if (minutes === 0) {
         clearInterval(timer);
         isRunning = false;
+
         if (alarmSound) alarmSound.play();
-        alert("⏰ Time's up! Great job! Take a short break.");
-        document.title = "FocusVerse – Break Time!";
-        updateStreakOnSessionComplete();
+
+        if (isFocusMode) {
+          alert("⏰ Focus session complete! Time for a break.");
+          updateStreakOnSessionComplete();
+        } else {
+          alert("✅ Break over! Time to focus.");
+        }
+        isFocusMode = !isFocusMode;
+        startButton(); 
         return;
       }
       minutes--;
@@ -78,6 +87,7 @@ function startButton() {
   }, 1000);
 }
 
+
 function stopButton() {
   clearInterval(timer);
   isRunning = false;
@@ -87,14 +97,16 @@ function stopButton() {
 function resetButton() {
   clearInterval(timer);
   isRunning = false;
-  minutes = 25;
+  isFocusMode = true;
+  minutes = parseInt(customFocusInput.value) || 25;
   seconds = 0;
 
-  customMinutesInput.style.display = "inline-block";
-  document.getElementById("minute").style.display = "inline-block";
+  customFocusInput.style.display = "inline-block";
+  customBreakInput.style.display = "inline-block";
+  document.querySelectorAll(".minute").forEach(el => el.style.display = "inline-block");
+
   if (timerDisplay) timerDisplay.style.display = "none";
 
-  customMinutesInput.value = 25;
   distractionMessage.innerHTML = "";
   quoteBox.textContent = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
   updateDisplay();
