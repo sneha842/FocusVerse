@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 <body>
     <div class="container">
-        <h1>🌌FocusVerse!!</h1>
+        <h1 class="focus-title">FocusVerse</h1>
         <p>Your Peaceful Portal to Productivity!</p>
 
-        <div class="timer">
-            <span id="minutes">25</span> : <span id="seconds">00</span>
+        <div id="timerContainer" class="timer-container">
+            <input id="customMinutes" type="number" value="25" min="1" class="timer-input" /><span id = "minute" class = "minute">minutes</span>
+            <div id="timerDisplay" class="timer-display" style="display: none;">25 : 00</div>
+            <div id="pauseStatus" style="display:none; margin-top: 6px; color:#ff9800; font-weight:600;"></div>
         </div>
-        <div id="streakDisplay" style="font-size: 1.2em; margin-bottom: 10px; color: #e25822; font-weight: bold;"></div>
+
+        
+        <div id="streakDisplay" style="font-size: 1.2rem; margin-bottom: 10px; color: #ff5722; font-weight: bold;"></div>
+
 
         <div class="controls">
             <button onclick="startButton()">Start</button>
@@ -40,7 +45,36 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+    <!-- Timer completion sound -->
+    <audio id="alarmSound" src="https://notificationsounds.com/storage/sounds/file-sounds-1150-pristine.mp3" preload="auto"></audio>
+  </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <script>
+       let vantaEffect = VANTA.WAVES({
+        el: "body",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: window.innerHeight,   // ✅ Set to full viewport height
+        minWidth: window.innerWidth,     // ✅ Set to full viewport width
+        scale: 1.8,
+        scaleMobile: 1.00,
+        color: 0xff9966,
+        shininess: 50,
+        waveHeight: 20,
+        waveSpeed: 1.18,
+    });
+    window.addEventListener('resize', () => {
+        if (vantaEffect) {
+            vantaEffect.resize();
+        }
+    });
+    </script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
