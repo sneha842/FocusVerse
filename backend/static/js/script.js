@@ -2,10 +2,12 @@ let timer;
 let minutes = 25;
 let seconds = 0;
 let isRunning = false;
+let isPaused = false; // Tracks if the timer is paused (stopped mid-session)
 
 const minutesDisplay      = document.getElementById("minutes");
 const secondsDisplay      = document.getElementById("seconds");
 const timerDisplay        = document.getElementById("timerDisplay");
+const pauseStatus         = document.getElementById("pauseStatus");
 const distractionMessage  = document.getElementById("distractionmessage");
 const quoteBox            = document.getElementById("quoteBox");
 const bgMusic             = document.getElementById("bgMusic");
@@ -36,20 +38,36 @@ function updateDisplay() {
     timerDisplay.textContent = `${mm} : ${ss}`;
   }
 
-  document.title = isRunning ? `Focus: ${mm}:${ss} remaining` : "FocusVerse – Ready to begin";
+  if (isRunning) {
+    document.title = `Focus: ${mm}:${ss} remaining`;
+  } else if (isPaused && (minutes > 0 || seconds > 0)) {
+    document.title = `Paused at ${mm}:${ss} – FocusVerse`;
+  } else {
+    document.title = "FocusVerse – Ready to begin";
+  }
 }
 
 function startButton() {
   if (isRunning) return;
 
-  const inputMinutes = parseInt(customMinutesInput.value);
-  if (isNaN(inputMinutes) || inputMinutes <= 0) {
-    alert("Please enter valid minutes!");
-    return;
+  // Determine if we are resuming or starting fresh
+  const isFinished = minutes === 0 && seconds === 0;
+  const isTimerHidden = timerDisplay && timerDisplay.style.display === "none";
+  const startingFresh = !isPaused || isFinished || isTimerHidden;
+
+  if (startingFresh) {
+    const inputMinutes = parseInt(customMinutesInput.value);
+    if (isNaN(inputMinutes) || inputMinutes <= 0) {
+      alert("Please enter valid minutes!");
+      return;
+    }
+    minutes = inputMinutes;
+    seconds = 0;
   }
 
-  minutes = inputMinutes;
-  seconds = 0;
+  // Prepare UI
+  if (pauseStatus) pauseStatus.style.display = "none";
+  isPaused = false;
   updateDisplay();
 
   customMinutesInput.style.display = "none";
@@ -63,6 +81,8 @@ function startButton() {
       if (minutes === 0) {
         clearInterval(timer);
         isRunning = false;
+        isPaused = false;
+        if (pauseStatus) pauseStatus.style.display = "none";
         if (alarmSound) alarmSound.play();
         alert("⏰ Time's up! Great job! Take a short break.");
         document.title = "FocusVerse – Break Time!";
@@ -79,20 +99,34 @@ function startButton() {
 }
 
 function stopButton() {
+  if (!isRunning) return;
   clearInterval(timer);
   isRunning = false;
+  isPaused = true;
+
+  const mm = String(minutes).padStart(2, '0');
+  const ss = String(seconds).padStart(2, '0');
+  if (pauseStatus) {
+    pauseStatus.textContent = `⏸️ Paused at ${mm}:${ss}`;
+    pauseStatus.style.display = "block";
+  }
   updateDisplay();
 }
 
 function resetButton() {
+  const confirmReset = confirm("Reset the timer? This will clear the current session and progress for this cycle.");
+  if (!confirmReset) return;
+
   clearInterval(timer);
   isRunning = false;
+  isPaused = false;
   minutes = 25;
   seconds = 0;
 
   customMinutesInput.style.display = "inline-block";
   document.getElementById("minute").style.display = "inline-block";
   if (timerDisplay) timerDisplay.style.display = "none";
+  if (pauseStatus) pauseStatus.style.display = "none";
 
   customMinutesInput.value = 25;
   distractionMessage.innerHTML = "";
