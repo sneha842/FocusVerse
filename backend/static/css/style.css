@@ -3,179 +3,170 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 body {
-    align-items: center;
-    background-color: antiquewhite;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    color: rgb(147, 19, 19);
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: center;
-    padding: 20px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  align-items: center;
+  background-color: antiquewhite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: rgb(147, 19, 19);
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .focus-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #cb5b11;
-    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
-    display: inline-block;
-    padding: 12px 25px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.407);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.6s ease, text-shadow 0.6s ease;
-    cursor: pointer;
-    animation: floatEffect 2.5s ease-in-out infinite alternate; 
-    margin: 0 auto;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #cb5b11;
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.407);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.6s ease, text-shadow 0.6s ease;
+  cursor: pointer;
+  animation: floatEffect 2.5s ease-in-out infinite alternate;
+  margin: 0 auto;
 }
-
 
 /* Hover / Touch 3D Floating effect */
 .focus-title:hover {
-    transform: translateY(-10px) scale(1.05);
-    text-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px) scale(1.05);
+  text-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Active state to bring it back */
 .focus-title:active {
-    transform: translateY(0px) scale(1);
+  transform: translateY(0px) scale(1);
 }
 
 /* Glowing effect when hovered */
 .focus-title:hover::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+  pointer-events: none;
 }
 
 /* Keyframes for subtle floating effect */
 @keyframes floatEffect {
-    0% {
-        transform: translateY(0) scale(1);
-        text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
-    }
-    50% {
-        transform: translateY(-6px) scale(1.02);
-        text-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
-    }
-    100% {
-        transform: translateY(0) scale(1);
-        text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
-    }
+  0% {
+    transform: translateY(0) scale(1);
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+    text-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .container {
-    position: relative;
-    text-align: center;
-    padding: 40px;
-    background-color: rgb(236, 163, 85);
-    background: rgba(253, 191, 125, 0.85); /* Lighter */
-    border-radius: 20px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    margin: 20px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;  /* ✅ Prevent floating text from escaping */
-    animation: containerFloat 3.5s ease-in-out infinite;
-    transition: transform 0.4s ease;
+  position: relative;
+  text-align: center;
+  padding: 40px;
+  background: rgba(253, 191, 125, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  margin: 20px;
+  z-index: 1;
+  overflow: hidden; /* Prevent floating text from escaping */
+  animation: containerFloat 3.5s ease-in-out infinite;
+  transition: transform 0.4s ease;
 }
 
 /* Hover effect for extra lift */
 .container:hover {
-    transform: translateY(-8px) scale(1.02);
+  transform: translateY(-8px) scale(1.02);
 }
 
 /* Animated gradient border */
 .container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px;
-    padding: 3px;
-    background: linear-gradient(135deg, #ff9966, #ff5e62, #f5af19, #f12711);
-    background-size: 400%;
-    animation: borderGlow 8s linear infinite;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  padding: 3px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62, #f5af19, #f12711);
+  background-size: 400%;
+  animation: borderGlow 8s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                 linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
 }
 
 /* Floating effect (gentle up and down motion) */
 @keyframes containerFloat {
-    0% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-6px) scale(1.01); }
-    100% { transform: translateY(0) scale(1); }
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.01); }
+  100% { transform: translateY(0) scale(1); }
 }
 
 /* Gradient border animation */
 @keyframes borderGlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-
 .timer {
-    font-size: 48px;
-    margin: 20px 0;
-    color: rgb(147, 19, 19);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 48px;
+  margin: 20px 0;
+  color: rgb(147, 19, 19);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; /* Equal spacing between buttons */
+  gap: 10px;
   margin-top: 20px;
   position: relative;
-  z-index: 1; /* Ensures controls are above the container background */
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  z-index: 1;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ensures controls take full width of container */
-  max-width: 400px; /* Limits the width of controls */
-  margin: 0 auto; /* Centers the controls within the container */
-  padding: 20px; /* Adds padding around the controls */
-  box-sizing: border-box; /* Ensures padding is included in width */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .controls button {
@@ -186,29 +177,26 @@ body {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  min-width: 120px; /* makes all buttons same width */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-weight: bold; /* Makes button text bold */
-  text-transform: uppercase; /* Makes button text uppercase */
-  margin: 5px; /* Adds margin around buttons for spacing */
-  flex: 1; /* Allows buttons to grow and fill available space */
-  max-width: 150px; /* Limits the maximum width of buttons */
-  display: flex; /* Ensures buttons are flexible */
-  justify-content: center; /* Centers text within buttons */
-  align-items: center; /* Vertically centers text within buttons */
-  box-sizing: border-box; /* Ensures padding is included in width */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
-  font-weight: 600; /* Slightly bolder text for better visibility */
-  text-decoration: none; /* Removes underline from button text */
-  outline: none; /* Removes outline on focus */
   transition: background-color 0.3s ease, transform 0.2s ease;
-
+  min-width: 120px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 5px;
+  flex: 1;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  outline: none;
+  text-decoration: none;
 }
 
 .controls button:hover {
   background-color: #ff8c42;
-  transform: translateY(-2px); /* Adds a slight lift effect on hover */
+  transform: translateY(-2px);
 }
 
 .music-controls button {
@@ -238,21 +226,19 @@ body {
   background-image: none;
 }
 
-
-.dark-mode .container{
+.dark-mode .container {
   background-color: #333;
   color: #fff;
 }
 
-#volumeControl{
+#volumeControl {
   display: none;
 }
 
-#volumeControlSlider{
+#volumeControlSlider {
   color: #333;
 }
 
-/* Base styling */
 .slider {
   appearance: none;
   -webkit-appearance: none;
@@ -263,7 +249,6 @@ body {
   transition: background 450ms ease-in;
 }
 
-/* Chrome, Safari, newer Edge - Thumb */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -273,15 +258,13 @@ body {
   background: white;
   border: 2px solid rgb(150, 73, 5);
   cursor: pointer;
-  margin-top: 1px; /* align thumb center */
+  margin-top: 1px;
 }
 
-/* Firefox - Track */
 .slider::-moz-range-track {
   background: transparent;
 }
 
-/* Firefox - Thumb */
 .slider::-moz-range-thumb {
   height: 15px;
   width: 15px;
@@ -292,37 +275,35 @@ body {
 }
 
 #vanta-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
-
-/* Dynamic background fill on input */
 .slider:focus {
   outline: none;
 }
 
 .timer-input {
-    border: none;
-    background-color: rgb(236, 163, 85);
-    font-size: 2em;
-    text-align: center;
-    color: #7d1a1a;
-    width: 20%;
-    padding: 5px;
-    border-radius: 8px;
+  border: none;
+  background-color: rgb(236, 163, 85);
+  font-size: 2em;
+  text-align: center;
+  color: #7d1a1a;
+  width: 20%;
+  padding: 5px;
+  border-radius: 8px;
 }
 
 .timer-display {
-    font-size: 2em;
-    color: #7d1a1a;
+  font-size: 2em;
+  color: #7d1a1a;
 }
 
 .minute {
   font-size: 1.5em;
-  color: #7d1a1a;
+  color: #7d1a1a;
 }
