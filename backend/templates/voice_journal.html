@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Journal - FocusVerse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/voice_journal.css') }}">
+</head>
+<body>
+    <!-- Vanta.js Background -->
+    <div id="vanta-bg"></div>
+    
+    <div class="container">
+        <header class="journal-header">
+            <h1 class="focus-title"> Voice Journal</h1>
+            <p>Record your thoughts, get instant transcripts</p>
+            <nav class="journal-nav">
+                <a href="/" class="nav-link"> Back to Focus Timer</a>
+            </nav>
+        </header>
+
+        <!-- Recording Section -->
+        <section class="recording-section">
+            <div class="recorder-card">
+                <h2>New Voice Note</h2>
+                
+                <!-- Recording Controls -->
+                <div class="recording-controls">
+                    <button id="recordBtn" class="btn btn-record"> Start Recording</button>
+                    <button id="stopBtn" class="btn btn-stop" disabled> Stop</button>
+                    <button id="playBtn" class="btn btn-play" disabled> Play</button>
+                    <button id="cancelBtn" class="btn btn-cancel">Cancel</button>
+                </div>
+                
+                <!-- Recording Status -->
+                <div class="recording-info">
+                    <div id="recordingStatus" class="status"></div>
+                    <div id="recordingTimer" class="timer">00:00</div>
+                </div>
+                
+                <!-- Audio Player (Hidden) -->
+                <audio id="audioPlayer" controls style="display: none;"></audio>
+                
+                <!-- Language Selection -->
+                <div class="language-selection">
+                    <label for="languageSelect"> Language:</label>
+                    <select id="languageSelect">
+                        <option value="en-US">English (US)</option>
+                        <option value="en-GB">English (UK)</option>
+                        <option value="en-IN">English (India)</option>
+                        <option value="hi-IN">हिन्दी (Hindi)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Entry Form -->
+            <div class="entry-form" style="display: none;" id="entryForm">
+                <div class="form-group">
+                    <label for="titleInput"> Title (Optional):</label>
+                    <input type="text" id="titleInput" placeholder="Enter a title for your voice note..." maxlength="100">
+                </div>
+                
+                <div class="form-group">
+                    <label for="transcriptText"> Transcript:</label>
+                    <textarea id="transcriptText" 
+                              placeholder="Transcript will appear here automatically, or you can type/edit manually..." 
+                              rows="6"></textarea>
+                    <small class="form-hint">You can edit the transcript before saving</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button id="saveBtn" class="btn btn-save" disabled> Save Recording</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journal List Section -->
+        <section class="journal-list-section">
+            <div class="list-header">
+                <h2> Your Voice Journal</h2>
+                <button id="refreshBtn" class="btn btn-secondary"> Refresh</button>
+            </div>
+            
+            <div class="journal-filters">
+                <input type="search" id="searchInput" placeholder=" Search transcripts...">
+                <select id="sortSelect">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="duration">By Duration</option>
+                </select>
+            </div>
+            
+            <div id="journalList" class="journal-list">
+                <div class="loading">Loading your voice notes...</div>
+            </div>
+            
+            <div id="pagination" class="pagination"></div>
+        </section>
+    </div>
+
+    <!-- Entry Modal -->
+    <div id="entryModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Voice Note Details</h3>
+                <button class="modal-close" id="modalClose"> X </button>
+            </div>
+            <div class="modal-body">
+                <audio id="modalAudio" controls style="width: 100%; margin-bottom: 15px;"></audio>
+                <div class="entry-meta" id="modalMeta"></div>
+                <div class="transcript-display">
+                    <label>Transcript:</label>
+                    <div id="modalTranscript" class="transcript-content"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="editEntryBtn" class="btn btn-secondary"> Edit</button>
+                <button id="copyTranscriptBtn" class="btn btn-secondary"> Copy Text</button>
+                <button id="downloadBtn" class="btn btn-secondary"> Download</button>
+                <button id="deleteEntryBtn" class="btn btn-danger"> Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast" style="display: none;"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <script src="{{ url_for('static', filename='js/voice_recorder.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/journal_manager.js') }}"></script>
+    
+    <script>
+        // Initialize Vanta.js background
+        let vantaEffect = VANTA.WAVES({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: window.innerHeight,
+            minWidth: window.innerWidth,
+            scale: 1.5,
+            scaleMobile: 1.0,
+            color: 0x4a90e2,
+            shininess: 30,
+            waveHeight: 15,
+            waveSpeed: 0.8,
+            zoom: 0.65
+        });
+        
+        window.addEventListener('resize', () => {
+            if (vantaEffect) {
+                vantaEffect.resize();
+            }
+        });
+
+        // Initialize Voice Recorder and Journal Manager
+        let voiceRecorder;
+        let journalManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            voiceRecorder = new VoiceRecorder();
+            journalManager = new JournalManager();
+            
+            // Make available globally for cross-component communication
+            window.voiceRecorder = voiceRecorder;
+            window.journalManager = journalManager;
+            
+            // Show entry form when recording is stopped
+            const originalUpdateUI = voiceRecorder.updateUI;
+            voiceRecorder.updateUI = function(state) {
+                originalUpdateUI.call(this, state);
+                
+                const entryForm = document.getElementById('entryForm');
+                if (state === 'stopped') {
+                    entryForm.style.display = 'block';
+                    entryForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else if (state === 'ready') {
+                    entryForm.style.display = 'none';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
