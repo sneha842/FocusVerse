@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 <body>
     <div class="container">
@@ -13,14 +12,13 @@
         <p>Your Peaceful Portal to Productivity!</p>
 
         <div id="timerContainer" class="timer-container">
-            <input id="customMinutes" type="number" value="25" min="1" class="timer-input" /><span id = "minute" class = "minute">minutes</span>
+            <input id="customMinutes" type="number" value="25" min="1" class="timer-input">
+            <span id="minute" class="minute">minutes</span>
             <div id="timerDisplay" class="timer-display" style="display: none;">25 : 00</div>
-            <div id="pauseStatus" style="display:none; margin-top: 6px; color:#ff9800; font-weight:600;"></div>
+            <div id="pauseStatus" style="display:none; margin-top: 6px; color: #ff9800; font-weight: 600;"></div>
         </div>
 
-        
         <div id="streakDisplay" style="font-size: 1.2rem; margin-bottom: 10px; color: #ff5722; font-weight: bold;"></div>
-
 
         <div class="controls">
             <button onclick="startButton()">Start</button>
@@ -29,52 +27,49 @@
             <button onclick="gotdistracted()">I Got Distracted 😅</button>
         </div>
 
-        <div id ="distractionmessage"> </div>
+        <div id="distractionmessage"></div>
 
-        <div id ="quoteBox">🌿 Stay calm and keep going...</div>
+        <div id="quoteBox">🌿 Stay calm and keep going...</div>
 
         <div class="music-controls">
             <audio id="bgMusic" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3" />
+                <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
             </audio>
             <button onclick="toggleMusic()">🎵 Toggle Music</button>
-            <div id = "volumeControl">
-                <br/>
+            <div id="volumeControl">
+                <br>
                 <span>🔊</span>
-                <input type="range" min="0" max="100" value="30" class="slider" id="volumeControlSlider" />
+                <input type="range" min="0" max="100" value="30" class="slider" id="volumeControlSlider">
             </div>
         </div>
     </div>
 
     <!-- Timer completion sound -->
     <audio id="alarmSound" src="https://notificationsounds.com/storage/sounds/file-sounds-1150-pristine.mp3" preload="auto"></audio>
-  </div>
-
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
     <script>
-       let vantaEffect = VANTA.WAVES({
-        el: "body",
-        mouseControls: true,
-        touchControls: true,
-        minHeight: window.innerHeight,   // ✅ Set to full viewport height
-        minWidth: window.innerWidth,     // ✅ Set to full viewport width
-        scale: 1.8,
-        scaleMobile: 1.00,
-        color: 0xff9966,
-        shininess: 50,
-        waveHeight: 20,
-        waveSpeed: 1.18,
-    });
-    window.addEventListener('resize', () => {
-        if (vantaEffect) {
-            vantaEffect.resize();
-        }
-    });
-    </script>
+        let vantaEffect = VANTA.WAVES({
+            el: "body",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: window.innerHeight, // Full viewport height
+            minWidth: window.innerWidth,   // Full viewport width
+            scale: 1.8,
+            scaleMobile: 1.00,
+            color: 0xff9966,
+            shininess: 50,
+            waveHeight: 20,
+            waveSpeed: 1.18,
+        });
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        window.addEventListener('resize', () => {
+            if (vantaEffect) {
+                vantaEffect.resize();
+            }
+        });
+    </script>
 </body>
 </html>
