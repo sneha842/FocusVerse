@@ -4,6 +4,7 @@ let seconds = 0;
 let isRunning = false;
 let isPaused = false; // Tracks if the timer is paused (stopped mid-session)
 
+let isFocusMode = true;
 const minutesDisplay      = document.getElementById("minutes");
 const secondsDisplay      = document.getElementById("seconds");
 const timerDisplay        = document.getElementById("timerDisplay");
@@ -12,7 +13,8 @@ const distractionMessage  = document.getElementById("distractionmessage");
 const quoteBox            = document.getElementById("quoteBox");
 const bgMusic             = document.getElementById("bgMusic");
 const alarmSound          = document.getElementById("alarmSound");
-const customMinutesInput  = document.getElementById("customMinutes");
+const customFocusInput    = document.getElementById("customFocusMinutes");
+const customBreakInput    = document.getElementById("customBreakMinutes");
 const streakDisplay       = document.getElementById("streakDisplay");
 const volumeSlider        = document.getElementById("volumeControlSlider");
 const volumeControl       = document.getElementById("volumeControl");
@@ -37,7 +39,9 @@ function updateDisplay() {
   if (timerDisplay) {
     timerDisplay.textContent = `${mm} : ${ss}`;
   }
-
+   document.title = isRunning
+    ? `${isFocusMode ? "Focus" : "Break"}: ${mm}:${ss} remaining`
+    : "FocusVerse – Ready to begin";
   if (isRunning) {
     document.title = `Focus: ${mm}:${ss} remaining`;
   } else if (isPaused && (minutes > 0 || seconds > 0)) {
@@ -45,11 +49,16 @@ function updateDisplay() {
   } else {
     document.title = "FocusVerse – Ready to begin";
   }
+
 }
 
 function startButton() {
   if (isRunning) return;
 
+  const focusMinutes = parseInt(customFocusInput.value) || 25;
+  const breakMinutes = parseInt(customBreakInput.value) || 5;
+  minutes = isFocusMode ? focusMinutes : breakMinutes;
+  seconds = 0;
   // Determine if we are resuming or starting fresh
   const isFinished = minutes === 0 && seconds === 0;
   const isTimerHidden = timerDisplay && timerDisplay.style.display === "none";
@@ -70,8 +79,10 @@ function startButton() {
   isPaused = false;
   updateDisplay();
 
-  customMinutesInput.style.display = "none";
-  document.getElementById("minute").style.display = "none";
+  customFocusInput.style.display = "none";
+  customBreakInput.style.display = "none";
+  document.querySelectorAll(".minute").forEach(el => el.style.display = "none");
+
   if (timerDisplay) timerDisplay.style.display = "inline-block";
 
   isRunning = true;
@@ -83,10 +94,17 @@ function startButton() {
         isRunning = false;
         isPaused = false;
         if (pauseStatus) pauseStatus.style.display = "none";
+
         if (alarmSound) alarmSound.play();
-        alert("⏰ Time's up! Great job! Take a short break.");
-        document.title = "FocusVerse – Break Time!";
-        updateStreakOnSessionComplete();
+
+        if (isFocusMode) {
+          alert("⏰ Focus session complete! Time for a break.");
+          updateStreakOnSessionComplete();
+        } else {
+          alert("✅ Break over! Time to focus.");
+        }
+        isFocusMode = !isFocusMode;
+        startButton(); 
         return;
       }
       minutes--;
@@ -97,6 +115,7 @@ function startButton() {
     updateDisplay();
   }, 1000);
 }
+
 
 function stopButton() {
   if (!isRunning) return;
@@ -119,16 +138,19 @@ function resetButton() {
 
   clearInterval(timer);
   isRunning = false;
+  isFocusMode = true;
+  minutes = parseInt(customFocusInput.value) || 25;
   isPaused = false;
   minutes = 25;
   seconds = 0;
 
-  customMinutesInput.style.display = "inline-block";
-  document.getElementById("minute").style.display = "inline-block";
+  customFocusInput.style.display = "inline-block";
+  customBreakInput.style.display = "inline-block";
+  document.querySelectorAll(".minute").forEach(el => el.style.display = "inline-block");
+
   if (timerDisplay) timerDisplay.style.display = "none";
   if (pauseStatus) pauseStatus.style.display = "none";
 
-  customMinutesInput.value = 25;
   distractionMessage.innerHTML = "";
   quoteBox.textContent = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
   updateDisplay();
