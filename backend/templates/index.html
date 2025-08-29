@@ -5,12 +5,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            /* Default theme (Calm Mode) */
+            --primary-color: #4a89dc;
+            --secondary-color: #5d9cec;
+            --accent-color: #ff9800;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --container-bg: rgba(74, 137, 220, 0.15);;
+            --button-bg: #4a89dc;
+            --button-hover: #357bd8;
+            --button-text: white;
+            --quote-bg: rgba(234, 244, 255, 0.7);
+            --distraction-color: #ff5722;
+        }
+
+        /* Energetic Mode */
+        [data-theme="energetic"] {
+            --primary-color: #ff6b35;
+            --secondary-color: #ff8c42;
+            --accent-color: #ffcc00;
+            --background-color: #fff6e9;
+            --text-color: #5a3e36;
+            --container-bg:linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 204, 0, 0.15));
+            --button-bg: #ff6b35;
+            --button-hover: #e85a2a;
+            --button-text: white;
+            --quote-bg: rgba(255, 237, 219, 0.8);
+            --distraction-color: #e64a19;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --primary-color: #6b7a8f;
+            --secondary-color: #7d8da6;
+            --accent-color: #f4c20d;
+            --background-color: #1a1a2e;
+            --text-color: #e6e6e6;
+            --container-bg: linear-gradient(135deg, rgba(45, 45, 70, 0.8), rgba(25, 25, 40, 0.75));
+            --button-bg: #6b7a8f;
+            --button-hover: #5d6b80;
+            --button-text: white;
+            --quote-bg: rgba(45, 45, 70, 0.7);
+            --distraction-color: #ff8a65;
+        }
+
+        /* Ensure title is bright white in dark mode */
+        [data-theme="dark"] .focus-title {
+            color: #ffffff;
+        }
+        /* Nature Mode */
+        [data-theme="nature"] {
+            --primary-color: #4caf50;
+            --secondary-color: #66bb6a;
+            --accent-color: #8bc34a;
+            --background-color: #e8f5e9;
+            --text-color: #2e4c2e;
+            --container-bg: linear-gradient(135deg, rgba(66, 139, 87, 0.2), rgba(200, 230, 201, 0.15));;
+            --button-bg: #4caf50;
+            --button-hover: #43a047;
+            --button-text: white;
+            --quote-bg: rgba(232, 245, 233, 0.8);
+            --distraction-color: #ff7043;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            background: var(--container-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .focus-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        p {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .timer-container {
+            margin: 1.5rem 0;
+        }
+
+        .timer-input {
+            padding: 8px;
+            width: 60px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            background: var(--container-bg);
+            color: var(--text-color);
+        }
+
+        .minute {
+            margin-left: 5px;
+            color: var(--secondary-color);
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--primary-color);
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        button {
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: var(--button-hover);
+        }
+
+        #distractionmessage {
+            margin: 15px 0;
+            font-weight: bold;
+            color: var(--distraction-color);
+            min-height: 24px;
+        }
+
+        #quoteBox {
+            background: var(--quote-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .music-controls {
+            margin-top: 20px;
+        }
+
+        .slider {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .theme-selector {
+            margin: 15px 0;
+        }
+
+        .theme-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .theme-btn {
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 2px solid transparent;
+        }
+
+        .theme-btn.active {
+            border: 2px solid var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .theme-calm {
+            background: linear-gradient(to right, #4a89dc, #5d9cec);
+            color: white;
+        }
+
+        .theme-energetic {
+            background: linear-gradient(to right, #ff6b35, #ff8c42);
+            color: white;
+        }
+
+        .theme-dark {
+            background: linear-gradient(to right, #3a3a6a, #4a4a7a);
+            color: white;
+        }
+
+        .theme-nature {
+            background: linear-gradient(to right, #4caf50, #66bb6a);
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1 class="focus-title">FocusVerse</h1>
         <p>Your Peaceful Portal to Productivity!</p>
-
+<!-- Theme Selector -->
+        <div class="theme-selector">
+            <h3>Choose Your Focus Zone:</h3>
+            <div class="theme-buttons">
+                <button class="theme-btn theme-calm active" onclick="changeTheme('calm')">Calm Mode</button>
+                <button class="theme-btn theme-energetic" onclick="changeTheme('energetic')">Energetic Mode</button>
+                <button class="theme-btn theme-dark" onclick="changeTheme('dark')">Dark Mode</button>
+                <button class="theme-btn theme-nature" onclick="changeTheme('nature')">Nature Mode</button>
+            </div>
+        </div>
         <div id="timerContainer" class="timer-container">
             <input id="customMinutes" type="number" value="25" min="1" class="timer-input">
             <span id="minute" class="minute">minutes</span>
@@ -51,6 +277,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
     <script>
+        // Theme switching functionality
+        function changeTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+            
+            // Update active button state
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.querySelector(`.theme-${themeName}`).classList.add('active');
+            
+            // Save theme preference to localStorage
+            localStorage.setItem('focusverse-theme', themeName);
+        }
+        
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('focusverse-theme') || 'calm';
+            changeTheme(savedTheme);
+        });
         let vantaEffect = VANTA.WAVES({
             el: "body",
             mouseControls: true,
