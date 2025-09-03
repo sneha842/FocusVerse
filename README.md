@@ -54,30 +54,54 @@ Designed with simplicity and emotions at heart, it empowers users to build habit
 ```bash
 FocusVerse/
 │
-├── .gitignore               # Specifies intentionally untracked files to ignore
-├── app.py                  # Entry point for the Flask application
-├── CodeOfConduct.md        # Contributor Code of Conduct
-├── Contributing.md         # Contribution guidelines
-├── LICENSE                 # License information
-├── README.md               # You're reading it :)
-├── requirements.txt        # Python dependencies
-│
-└── backend/                # Main application package
-    │
-    ├── __init__.py         # Initializes the Flask app (Blueprint registration, app config)
-    │
-    ├── routes/             # Folder for all route files (Flask Blueprints)
-    │   ├── dashboard_routes.py  # Routes for dashboard features (tracker, timer, journal, etc.)
-    │   └── Procfile             # Optional (used for deployment on Heroku or Render)
-    │
-    ├── static/             # Static files: CSS, JS, images
-    │   ├── css/
-    │   │   └── style.css   # Main stylesheet
-    │   └── js/
-    │       └── script.js   # Frontend JavaScript (UI interactivity)
-    │
-    └── templates/          # HTML templates rendered by Flask
-        └── index.html      # Landing page / homepage
+├── app.py
+├── backend
+│   ├── __init__.py
+│   ├── routes
+│   │   ├── dashboard_routes.py
+│   │   ├── Procfile
+│   │   └── voice_journal_routers.py
+│   ├── static
+│   │   ├── css
+│   │   │   ├── style.css
+│   │   │   └── voice_journal.css
+│   │   └── js
+│   │       ├── journal_manager.js
+│   │       ├── script.js
+│   │       ├── service-worker.js
+│   │       └── voice_recorder.js
+│   └── templates
+│       ├── base.html
+│       ├── index.html
+│       └── voice_journal.html
+├── CodeOfConduct.md
+├── Contributing.md
+├── frontend
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.cjs
+│   ├── public
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   │   ├── Navbar.jsx
+│   │   │   └── themeToggle.jsx
+│   │   ├── context
+│   │   │   └── ThemeContext.jsx
+│   │   ├── counter.js
+│   │   ├── javascript.svg
+│   │   ├── main.jsx
+│   │   └── style.css
+│   └── tailwind.config.js
+├── LICENSE
+├── package-lock.json
+├── README.md
+├── requirements.txt
+├── procfile
+└── storage.py
+
 ```
 
 ---
