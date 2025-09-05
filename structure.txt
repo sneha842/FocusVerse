@@ -1,0 +1,50 @@
+.
+├── app.py
+├── backend
+│   ├── __init__.py
+│   ├── routes
+│   │   ├── dashboard_routes.py
+│   │   ├── Procfile
+│   │   └── voice_journal_routers.py
+│   ├── static
+│   │   ├── css
+│   │   │   ├── style.css
+│   │   │   └── voice_journal.css
+│   │   └── js
+│   │       ├── journal_manager.js
+│   │       ├── script.js
+│   │       ├── service-worker.js
+│   │       └── voice_recorder.js
+│   └── templates
+│       ├── base.html
+│       ├── index.html
+│       └── voice_journal.html
+├── CodeOfConduct.md
+├── Contributing.md
+├── frontend
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.cjs
+│   ├── public
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   │   ├── Navbar.jsx
+│   │   │   └── themeToggle.jsx
+│   │   ├── context
+│   │   │   └── ThemeContext.jsx
+│   │   ├── counter.js
+│   │   ├── javascript.svg
+│   │   ├── main.jsx
+│   │   └── style.css
+│   └── tailwind.config.js
+├── LICENSE
+├── package-lock.json
+├── README.md
+├── requirements.txt
+├── storage.py
+└── structure.txt
+
+12 directories, 36 files
