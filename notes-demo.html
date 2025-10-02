@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusVerse - Notes Sidebar Demo</title>
+    <style>
+        :root {
+            --primary-color: #4a89dc;
+            --secondary-color: #5d9cec;
+            --accent-color: #ff9800;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --container-bg: rgba(74, 137, 220, 0.15);
+            --button-bg: #4a89dc;
+            --button-hover: #357bd8;
+            --button-text: white;
+            --quote-bg: rgba(234, 244, 255, 0.7);
+            --distraction-color: #ff5722;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            text-align: center;
+            background: var(--container-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .focus-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        p {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Notes Sidebar Styles */
+        .notes-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .notes-toggle-btn:hover {
+            transform: scale(1.1);
+            background: var(--button-hover);
+        }
+
+        .notes-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--container-bg);
+            backdrop-filter: blur(10px);
+            border-left: 2px solid var(--primary-color);
+            z-index: 999;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .notes-sidebar.open {
+            right: 0;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--secondary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .notes-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .notes-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .notes-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .notes-controls {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .add-note-btn, .add-task-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-note-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .add-task-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+        .add-note-btn:hover, .add-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .notes-container {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .note-card {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-card.task {
+            border-left: 4px solid #4caf50;
+        }
+
+        .note-card.note {
+            border-left: 4px solid #ff9800;
+        }
+
+        .note-content {
+            width: 100%;
+            min-height: 60px;
+            border: none;
+            background: transparent;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .note-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .note-timestamp {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .note-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .note-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .note-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .task-checkbox {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+        .note-card.completed {
+            opacity: 0.6;
+            background: #f5f5f5;
+        }
+
+        .note-card.completed .note-content {
+            text-decoration: line-through;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .notes-sidebar {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .notes-toggle-btn {
+                top: 10px;
+                right: 10px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+
+        .feature-list {
+            text-align: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notes Sidebar Toggle Button -->
+    <button id="notesToggle" class="notes-toggle-btn" onclick="toggleNotesSidebar()">
+        📝
+    </button>
+
+    <!-- Notes Sidebar -->
+    <div id="notesSidebar" class="notes-sidebar">
+        <div class="notes-header">
+            <h3>Quick Notes</h3>
+            <button class="notes-close-btn" onclick="toggleNotesSidebar()">×</button>
+        </div>
+        
+        <div class="notes-controls">
+            <button class="add-note-btn" onclick="addNewNote()">+ Add Note</button>
+            <button class="add-task-btn" onclick="addNewTask()">✓ Add Task</button>
+        </div>
+        
+        <div id="notesContainer" class="notes-container">
+            <!-- Notes will be dynamically added here -->
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="focus-title">FocusVerse</h1>
+        <p>Your Peaceful Portal to Productivity!</p>
+        <p>Click the 📝 button to open the Notes Sidebar</p>
+        
+        <h3>Features:</h3>
+        <ul class="feature-list">
+            <li>📝 Quick sticky notes</li>
+            <li>✅ Task management with checkboxes</li>
+            <li>💾 Auto-save to local storage</li>
+            <li>📱 Responsive design</li>
+            <li>🎨 Colorful sticky note UI</li>
+            <li>⌨️ Keyboard shortcuts (Ctrl+N, Ctrl+Shift+N)</li>
+            <li>🎯 Click outside to close</li>
+        </ul>
+        
+        <p style="margin-top: 20px; font-size: 14px; color: #666;">
+            This is a demo of the Focus Notes Sidebar feature implemented for FocusVerse.
+        </p>
+    </div>
+
+    <script>
+        // Notes Sidebar Functionality
+        let notes = JSON.parse(localStorage.getItem('focusverse-notes') || '[]');
+        let noteIdCounter = parseInt(localStorage.getItem('focusverse-note-id-counter') || '0');
+
+        function toggleNotesSidebar() {
+            const sidebar = document.getElementById('notesSidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function addNewNote() {
+            const note = {
+                id: ++noteIdCounter,
+                type: 'note',
+                content: '',
+                timestamp: new Date().toLocaleString(),
+                completed: false
+            };
+            notes.unshift(note);
+            saveNotes();
+            renderNotes();
+            setTimeout(() => {
+                const newNoteElement = document.querySelector(`[data-note-id="${note.id}"] .note-content`);
+                if (newNoteElement) {
+                    newNoteElement.focus();
+                }
+            }, 100);
+        }
+
+        function addNewTask() {
+            const task = {
+                id: ++noteIdCounter,
+                type: 'task',
+                content: '',
+                timestamp: new Date().toLocaleString(),
+                completed: false
+            };
+            notes.unshift(task);
+            saveNotes();
+            renderNotes();
+            setTimeout(() => {
+                const newTaskElement = document.querySelector(`[data-note-id="${task.id}"] .note-content`);
+                if (newTaskElement) {
+                    newTaskElement.focus();
+                }
+            }, 100);
+        }
+
+        function updateNoteContent(id, content) {
+            const note = notes.find(n => n.id === id);
+            if (note) {
+                note.content = content;
+                saveNotes();
+            }
+        }
+
+        function toggleTaskCompletion(id) {
+            const note = notes.find(n => n.id === id);
+            if (note) {
+                note.completed = !note.completed;
+                saveNotes();
+                renderNotes();
+            }
+        }
+
+        function deleteNote(id) {
+            if (confirm('Are you sure you want to delete this note?')) {
+                notes = notes.filter(n => n.id !== id);
+                saveNotes();
+                renderNotes();
+            }
+        }
+
+        function saveNotes() {
+            localStorage.setItem('focusverse-notes', JSON.stringify(notes));
+            localStorage.setItem('focusverse-note-id-counter', noteIdCounter.toString());
+        }
+
+        function loadNotes() {
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const container = document.getElementById('notesContainer');
+            if (!container) return;
+
+            if (notes.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">No notes yet. Add one to get started!</div>';
+                return;
+            }
+
+            container.innerHTML = notes.map(note => `
+                <div class="note-card ${note.type} ${note.completed ? 'completed' : ''}" data-note-id="${note.id}">
+                    ${note.type === 'task' ? `<input type="checkbox" class="task-checkbox" ${note.completed ? 'checked' : ''} onchange="toggleTaskCompletion(${note.id})">` : ''}
+                    <textarea class="note-content" placeholder="${note.type === 'task' ? 'Enter task...' : 'Enter note...'}" onblur="updateNoteContent(${note.id}, this.value)">${note.content}</textarea>
+                    <div class="note-actions">
+                        <span class="note-timestamp">${note.timestamp}</span>
+                        <div class="note-buttons">
+                            <button class="note-btn" onclick="deleteNote(${note.id})" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Auto-save notes when typing
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('note-content')) {
+                const noteId = parseInt(e.target.closest('.note-card').dataset.noteId);
+                updateNoteContent(noteId, e.target.value);
+            }
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('notesSidebar');
+            const toggleBtn = document.getElementById('notesToggle');
+            
+            if (sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                !toggleBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                e.preventDefault();
+                addNewNote();
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'N') {
+                e.preventDefault();
+                addNewTask();
+            }
+            
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('notesSidebar');
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+
+        // Load notes on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNotes();
+        });
+    </script>
+</body>
+</html>
