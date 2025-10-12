@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusVerse - Ambient Sound Mixer Feature Demo</title>
+    <link rel="stylesheet" href="backend/static/css/ambient-sound.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .demo-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .demo-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .feature-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .feature-steps {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .feature-steps h4 {
+            margin: 0 0 10px 0;
+            color: #2e7d32;
+        }
+        
+        .feature-steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .feature-steps li {
+            margin: 5px 0;
+            color: #333;
+        }
+        
+        .demo-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .demo-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .demo-btn.secondary {
+            background: #6c757d;
+        }
+        
+        .demo-btn.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .mixer-demo {
+            position: relative;
+            height: 600px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .demo-note {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #1565c0;
+        }
+        
+        .demo-note strong {
+            color: #0d47a1;
+        }
+        
+        .sound-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .sound-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sound-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .sound-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .sound-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1 class="demo-title">🎵 Ambient Sound Mixer - Feature Demo</h1>
+            <p class="demo-subtitle">Complete guide to all ambient sound features</p>
+        </div>
+        
+        <div class="feature-section">
+            <h2 class="feature-title">🎚️ Volume Sliders for Each Sound Type</h2>
+            <p class="feature-description">
+                Each ambient sound has its own individual volume slider that you can adjust in real-time. 
+                The sliders are only enabled when the sound is playing, giving you precise control over your audio mix.
+            </p>
+            <div class="feature-steps">
+                <h4>How to use volume sliders:</h4>
+                <ol>
+                    <li>Click the 🎵 button to open the ambient sound mixer</li>
+                    <li>Toggle on any sound using the switch</li>
+                    <li>Use the volume slider to adjust the volume (0-100%)</li>
+                    <li>Adjust multiple sounds to create your perfect mix</li>
+                    <li>Volume changes are applied immediately</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2 class="feature-title">💾 Save Favorite Mixes</h2>
+            <p class="feature-description">
+                Create and save your favorite sound combinations for quick access. 
+                Perfect for different work environments or moods - save a "Rainy Day" mix, 
+                "Coffee Shop" mix, or "Forest Focus" mix.
+            </p>
+            <div class="feature-steps">
+                <h4>How to save and use mixes:</h4>
+                <ol>
+                    <li>Set up your desired sound combination with volume levels</li>
+                    <li>Click "💾 Save Mix" button</li>
+                    <li>Enter a name for your mix (e.g., "Rainy Day Focus")</li>
+                    <li>Click "Save" to store it</li>
+                    <li>Find your saved mix in the "Saved Mixes" section</li>
+                    <li>Click the ▶️ button to instantly load and play your mix</li>
+                    <li>Click the 🗑️ button to delete unwanted mixes</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2 class="feature-title">⏰ Auto-Start Focus Timer with Selected Sound</h2>
+            <p class="feature-description">
+                Automatically start your ambient sounds when you begin a focus session. 
+                No need to manually start sounds - they'll begin playing as soon as you start your timer.
+            </p>
+            <div class="feature-steps">
+                <h4>How to set up auto-start:</h4>
+                <ol>
+                    <li>Set up your desired ambient sound combination</li>
+                    <li>Click "▶️ Auto-Start" button in the mixer</li>
+                    <li>Start your focus timer as usual</li>
+                    <li>Your ambient sounds will automatically begin playing</li>
+                    <li>Sounds will continue throughout your focus session</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2 class="feature-title">🎧 Select Which Sounds You Want to Hear</h2>
+            <p class="feature-description">
+                Choose from 8 different ambient sounds and mix them however you like. 
+                Each sound can be toggled on/off independently, giving you complete control over your audio environment.
+            </p>
+            
+            <div class="sound-list">
+                <div class="sound-item">
+                    <div class="sound-icon">🌧️</div>
+                    <div class="sound-name">Rain</div>
+                    <div class="sound-description">Gentle rain sounds for calm focus</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">🌲</div>
+                    <div class="sound-name">Forest</div>
+                    <div class="sound-description">Forest ambiance with birds</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">☕</div>
+                    <div class="sound-name">Cafe</div>
+                    <div class="sound-description">Coffee shop atmosphere</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">🔥</div>
+                    <div class="sound-name">Fireplace</div>
+                    <div class="sound-description">Crackling fire sounds</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">🌊</div>
+                    <div class="sound-name">Ocean</div>
+                    <div class="sound-description">Ocean waves for peace</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">⌨️</div>
+                    <div class="sound-name">Typing</div>
+                    <div class="sound-description">Keyboard typing sounds</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">⛈️</div>
+                    <div class="sound-name">Thunder</div>
+                    <div class="sound-description">Distant thunder</div>
+                </div>
+                <div class="sound-item">
+                    <div class="sound-icon">💨</div>
+                    <div class="sound-name">Wind</div>
+                    <div class="sound-description">Gentle wind sounds</div>
+                </div>
+            </div>
+            
+            <div class="feature-steps">
+                <h4>How to select and mix sounds:</h4>
+                <ol>
+                    <li>Open the ambient sound mixer (🎵 button)</li>
+                    <li>Toggle on any sounds you want using the switches</li>
+                    <li>Adjust individual volume levels with sliders</li>
+                    <li>Mix multiple sounds together (e.g., Rain + Thunder + Wind)</li>
+                    <li>Experiment with different combinations</li>
+                    <li>Save your favorite combinations as mixes</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="demo-note">
+            <strong>Live Demo:</strong> The ambient sound mixer is fully functional in the main FocusVerse application. 
+            All features work with real online audio sources and are ready to use immediately.
+        </div>
+        
+        <div class="mixer-demo">
+            <div id="ambient-sound-container"></div>
+        </div>
+        
+        <div class="demo-actions">
+            <a href="backend/templates/index.html" class="demo-btn">🚀 Try FocusVerse Now</a>
+            <a href="ambient-sound-demo.html" class="demo-btn secondary">🎵 Sound Mixer Demo</a>
+        </div>
+    </div>
+    
+    <script src="backend/static/js/ambient-sound-mixer.js"></script>
+    <script>
+        // Demo-specific modifications
+        document.addEventListener('DOMContentLoaded', () => {
+            // Override the fetch to return demo data
+            const originalFetch = window.fetch;
+            window.fetch = function(url, options) {
+                if (url.includes('/api/ambient-sounds')) {
+                    return Promise.resolve({
+                        ok: true,
+                        json: () => Promise.resolve({
+                            rain: {
+                                name: 'Rain',
+                                icon: '🌧️',
+                                description: 'Gentle rain sounds',
+                                file: 'https://www.bensound.com/bensound-music/bensound-rain.mp3',
+                                fallback: 'https://www.soundjay.com/misc/sounds/rain-01.mp3',
+                                default_volume: 0.3
+                            },
+                            forest: {
+                                name: 'Forest',
+                                icon: '🌲',
+                                description: 'Forest ambiance with birds',
+                                file: 'https://www.bensound.com/bensound-music/bensound-forest.mp3',
+                                fallback: 'https://www.soundjay.com/nature/sounds/forest-01.mp3',
+                                default_volume: 0.4
+                            },
+                            cafe: {
+                                name: 'Cafe',
+                                icon: '☕',
+                                description: 'Coffee shop atmosphere',
+                                file: 'https://www.bensound.com/bensound-music/bensound-cafe.mp3',
+                                fallback: 'https://www.soundjay.com/misc/sounds/cafe-01.mp3',
+                                default_volume: 0.2
+                            },
+                            fire: {
+                                name: 'Fireplace',
+                                icon: '🔥',
+                                description: 'Crackling fire sounds',
+                                file: 'https://www.bensound.com/bensound-music/bensound-fire.mp3',
+                                fallback: 'https://www.soundjay.com/misc/sounds/fire-01.mp3',
+                                default_volume: 0.3
+                            },
+                            ocean: {
+                                name: 'Ocean',
+                                icon: '🌊',
+                                description: 'Ocean waves',
+                                file: 'https://www.bensound.com/bensound-music/bensound-ocean.mp3',
+                                fallback: 'https://www.soundjay.com/nature/sounds/ocean-01.mp3',
+                                default_volume: 0.4
+                            },
+                            typing: {
+                                name: 'Typing',
+                                icon: '⌨️',
+                                description: 'Keyboard typing sounds',
+                                file: 'https://www.bensound.com/bensound-music/bensound-typing.mp3',
+                                fallback: 'https://www.soundjay.com/misc/sounds/typing-01.mp3',
+                                default_volume: 0.2
+                            },
+                            thunder: {
+                                name: 'Thunder',
+                                icon: '⛈️',
+                                description: 'Distant thunder',
+                                file: 'https://www.bensound.com/bensound-music/bensound-thunder.mp3',
+                                fallback: 'https://www.soundjay.com/nature/sounds/thunder-01.mp3',
+                                default_volume: 0.3
+                            },
+                            wind: {
+                                name: 'Wind',
+                                icon: '💨',
+                                description: 'Gentle wind sounds',
+                                file: 'https://www.bensound.com/bensound-music/bensound-wind.mp3',
+                                fallback: 'https://www.soundjay.com/nature/sounds/wind-01.mp3',
+                                default_volume: 0.3
+                            }
+                        })
+                    });
+                } else if (url.includes('/api/ambient-mixes')) {
+                    return Promise.resolve({
+                        ok: true,
+                        json: () => Promise.resolve([])
+                    });
+                }
+                return originalFetch.apply(this, arguments);
+            };
+            
+            // Initialize the mixer
+            window.ambientSoundMixer = new AmbientSoundMixer();
+        });
+    </script>
+</body>
+</html>

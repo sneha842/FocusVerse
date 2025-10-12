@@ -6,8 +6,17 @@
     <title>FocusVerse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/notes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ambient-sound.css') }}">
 </head>
 <body>
+    <!-- Ambient Sound Mixer Container -->
+    <div id="ambient-sound-container"></div>
+
+    <!-- Manual Ambient Sound Button (always visible toggle) -->
+    <button id="manualAmbientSoundBtn" class="ambient-sound-manual-btn" onclick="toggleAmbientSoundMixer()" title="Ambient Sound Mixer">
+        🎵
+    </button>
+
     <!-- Notes Sidebar Toggle Button -->
     <button id="notesToggle" class="notes-toggle-btn" onclick="toggleNotesSidebar()">
         📝
@@ -100,6 +109,7 @@
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="{{ url_for('static', filename='js/notes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ambient-sound-mixer.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
     <script>
@@ -122,7 +132,44 @@
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('focusverse-theme') || 'calm';
             changeTheme(savedTheme);
+            
+        // Check if ambient sound mixer loaded properly
+        setTimeout(() => {
+            const container = document.getElementById('ambient-sound-container');
+            const manualBtn = document.getElementById('manualAmbientSoundBtn');
+
+            if (container && container.innerHTML.trim() === '') {
+                console.log('🎵 Ambient sound mixer not loaded, button remains visible');
+                if (manualBtn) {
+                    manualBtn.style.animation = 'pulse 2s infinite';
+                }
+            } else {
+                console.log('✅ Ambient sound mixer loaded successfully');
+            }
+        }, 3000);
         });
+        
+        // Manual ambient sound mixer toggle
+        function toggleAmbientSoundMixer() {
+            if (window.ambientSoundMixer) {
+                window.ambientSoundMixer.toggleCollapsed();
+            } else {
+                // Try to initialize the mixer
+                console.log('🎵 Manual button clicked, trying to initialize mixer...');
+                try {
+                    window.ambientSoundMixer = new AmbientSoundMixer();
+                    // Wait a moment for it to render, then toggle
+                    setTimeout(() => {
+                        if (window.ambientSoundMixer) {
+                            window.ambientSoundMixer.toggleCollapsed();
+                        }
+                    }, 100);
+                } catch (error) {
+                    console.error('❌ Failed to initialize mixer:', error);
+                    alert('🎵 Ambient Sound Mixer\n\nThis feature allows you to:\n• Mix ambient sounds (rain, forest, cafe, etc.)\n• Adjust individual volumes\n• Save favorite combinations\n• Auto-start with focus timer\n\nPlease refresh the page to load the mixer properly.');
+                }
+            }
+        }
 
         let vantaEffect = VANTA.WAVES({
             el: "body",

@@ -74,6 +74,11 @@ function startButton() {
     seconds = 0;
   }
 
+  // Start ambient sounds if available
+  if (window.ambientSoundMixer) {
+    window.ambientSoundMixer.startWithTimer();
+  }
+
   // Prepare UI
   if (pauseStatus) pauseStatus.style.display = "none";
   isPaused = false;
@@ -122,6 +127,11 @@ function stopButton() {
   clearInterval(timer);
   isRunning = false;
   isPaused = true;
+
+  // Stop ambient sounds if available
+  if (window.ambientSoundMixer) {
+    window.ambientSoundMixer.stopWithTimer();
+  }
 
   const mm = String(minutes).padStart(2, '0');
   const ss = String(seconds).padStart(2, '0');

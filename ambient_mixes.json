@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "d",
+    "sounds": {
+      "cafe": {
+        "volume": 0.2,
+        "playing": true
+      },
+      "fire": {
+        "volume": 0.88,
+        "playing": true
+      }
+    },
+    "created_at": "2025-10-12T12:43:09.990Z"
+  }
+]

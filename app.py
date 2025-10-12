@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import logging
 from backend.routes.voice_journal_routers import voice_journal_bp
+from backend.routes.ambient_sound_routes import ambient_sound_bp
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,6 +20,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 logging.basicConfig(level=logging.INFO)
 
 app.register_blueprint(voice_journal_bp)
+app.register_blueprint(ambient_sound_bp)
 
 @app.route('/')
 def index():
