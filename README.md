@@ -36,6 +36,10 @@ Designed with simplicity and emotions at heart, it empowers users to build habit
 - ⏳ Pomodoro Timer
 - 📔 Daily Journal
 - 📈 Minimalist analytics dashboard
+- 🎵 **NEW: Ambient Sound Mixer** - Create custom background soundscapes
+- 🎚️ Volume sliders for each sound type
+- 💾 Save favorite sound mixes
+- ⏰ Auto-start focus timer with selected sounds
 
 ---
 
@@ -60,16 +64,21 @@ FocusVerse/
 │   ├── routes
 │   │   ├── dashboard_routes.py
 │   │   ├── Procfile
-│   │   └── voice_journal_routers.py
+│   │   ├── voice_journal_routers.py
+│   │   └── ambient_sound_routes.py
 │   ├── static
 │   │   ├── css
 │   │   │   ├── style.css
-│   │   │   └── voice_journal.css
+│   │   │   ├── voice_journal.css
+│   │   │   └── ambient-sound.css
+│   │   ├── audio
+│   │   │   └── README.md
 │   │   └── js
 │   │       ├── journal_manager.js
 │   │       ├── script.js
 │   │       ├── service-worker.js
-│   │       └── voice_recorder.js
+│   │       ├── voice_recorder.js
+│   │       └── ambient-sound-mixer.js
 │   └── templates
 │       ├── base.html
 │       ├── index.html

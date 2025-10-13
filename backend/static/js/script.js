@@ -68,7 +68,16 @@ function startButton() {
     }
   }
 
-  // Hide inputs and prepare UI
+  // Start ambient sounds if available
+  if (window.ambientSoundMixer) {
+    window.ambientSoundMixer.startWithTimer();
+  }
+
+  // Prepare UI
+  if (pauseStatus) pauseStatus.style.display = "none";
+  isPaused = false;
+  updateDisplay();
+
   customFocusInput.style.display = "none";
   customBreakInput.style.display = "none";
   document.querySelectorAll(".minute").forEach(el => el.style.display = "none");
@@ -135,6 +144,11 @@ function stopButton() {
   }
   
   isPaused = true;
+
+  // Stop ambient sounds if available
+  if (window.ambientSoundMixer) {
+    window.ambientSoundMixer.stopWithTimer();
+  }
 
   const mm = String(minutes).padStart(2, '0');
   const ss = String(seconds).padStart(2, '0');

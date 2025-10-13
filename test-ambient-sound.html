@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ambient Sound Mixer</title>
+    <link rel="stylesheet" href="backend/static/css/ambient-sound.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-title {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .test-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .debug-info {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">🎵 Ambient Sound Mixer Test</h1>
+        
+        <div class="test-info">
+            <strong>Test Instructions:</strong>
+            <ol>
+                <li>Look for the 🎵 button in the top-right corner</li>
+                <li>Click it to open the ambient sound mixer</li>
+                <li>Try toggling sounds on/off</li>
+                <li>Adjust volume sliders</li>
+                <li>Check browser console for any errors</li>
+            </ol>
+        </div>
+        
+        <!-- Ambient Sound Mixer Container -->
+        <div id="ambient-sound-container"></div>
+        
+        <div class="debug-info">
+            <strong>Debug Information:</strong><br>
+            <div id="debug-output">Loading...</div>
+        </div>
+    </div>
+
+    <script src="backend/static/js/ambient-sound-mixer.js"></script>
+    <script>
+        // Debug information
+        document.addEventListener('DOMContentLoaded', () => {
+            const debugOutput = document.getElementById('debug-output');
+            let debugInfo = [];
+            
+            debugInfo.push('✅ DOM loaded');
+            debugInfo.push('✅ Ambient sound container found: ' + (document.getElementById('ambient-sound-container') ? 'Yes' : 'No'));
+            debugInfo.push('✅ Ambient sound mixer script loaded: ' + (typeof AmbientSoundMixer !== 'undefined' ? 'Yes' : 'No'));
+            
+            // Check if mixer is initialized
+            setTimeout(() => {
+                debugInfo.push('✅ Ambient sound mixer initialized: ' + (window.ambientSoundMixer ? 'Yes' : 'No'));
+                debugInfo.push('✅ Sounds loaded: ' + (window.ambientSoundMixer && Object.keys(window.ambientSoundMixer.sounds).length > 0 ? 'Yes' : 'No'));
+                
+                debugOutput.innerHTML = debugInfo.join('<br>');
+            }, 1000);
+        });
+        
+        // Override fetch for testing
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options) {
+            if (url.includes('/api/ambient-sounds')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({
+                        rain: {
+                            name: 'Rain',
+                            icon: '🌧️',
+                            description: 'Gentle rain sounds',
+                            file: 'https://www.bensound.com/bensound-music/bensound-rain.mp3',
+                            fallback: 'https://www.soundjay.com/misc/sounds/rain-01.mp3',
+                            default_volume: 0.3
+                        },
+                        forest: {
+                            name: 'Forest',
+                            icon: '🌲',
+                            description: 'Forest ambiance with birds',
+                            file: 'https://www.bensound.com/bensound-music/bensound-forest.mp3',
+                            fallback: 'https://www.soundjay.com/nature/sounds/forest-01.mp3',
+                            default_volume: 0.4
+                        },
+                        cafe: {
+                            name: 'Cafe',
+                            icon: '☕',
+                            description: 'Coffee shop atmosphere',
+                            file: 'https://www.bensound.com/bensound-music/bensound-cafe.mp3',
+                            fallback: 'https://www.soundjay.com/misc/sounds/cafe-01.mp3',
+                            default_volume: 0.2
+                        },
+                        fire: {
+                            name: 'Fireplace',
+                            icon: '🔥',
+                            description: 'Crackling fire sounds',
+                            file: 'https://www.bensound.com/bensound-music/bensound-fire.mp3',
+                            fallback: 'https://www.soundjay.com/misc/sounds/fire-01.mp3',
+                            default_volume: 0.3
+                        },
+                        ocean: {
+                            name: 'Ocean',
+                            icon: '🌊',
+                            description: 'Ocean waves',
+                            file: 'https://www.bensound.com/bensound-music/bensound-ocean.mp3',
+                            fallback: 'https://www.soundjay.com/nature/sounds/ocean-01.mp3',
+                            default_volume: 0.4
+                        },
+                        typing: {
+                            name: 'Typing',
+                            icon: '⌨️',
+                            description: 'Keyboard typing sounds',
+                            file: 'https://www.bensound.com/bensound-music/bensound-typing.mp3',
+                            fallback: 'https://www.soundjay.com/misc/sounds/typing-01.mp3',
+                            default_volume: 0.2
+                        },
+                        thunder: {
+                            name: 'Thunder',
+                            icon: '⛈️',
+                            description: 'Distant thunder',
+                            file: 'https://www.bensound.com/bensound-music/bensound-thunder.mp3',
+                            fallback: 'https://www.soundjay.com/nature/sounds/thunder-01.mp3',
+                            default_volume: 0.3
+                        },
+                        wind: {
+                            name: 'Wind',
+                            icon: '💨',
+                            description: 'Gentle wind sounds',
+                            file: 'https://www.bensound.com/bensound-music/bensound-wind.mp3',
+                            fallback: 'https://www.soundjay.com/nature/sounds/wind-01.mp3',
+                            default_volume: 0.3
+                        }
+                    })
+                });
+            } else if (url.includes('/api/ambient-mixes')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve([])
+                });
+            }
+            return originalFetch.apply(this, arguments);
+        };
+    </script>
+</body>
+</html>
