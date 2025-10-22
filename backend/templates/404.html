@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - FocusVerse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-theme="calm">
+    <!-- Theme Selector -->
+    <div class="theme-selector" style="position: absolute; top: 20px; right: 20px;">
+        <div class="theme-buttons">
+            <button class="theme-btn theme-calm active" onclick="changeTheme('calm')">Calm</button>
+            <button class="theme-btn theme-energetic" onclick="changeTheme('energetic')">Energetic</button>
+            <button class="theme-btn theme-dark" onclick="changeTheme('dark')">Dark</button>
+            <button class="theme-btn theme-nature" onclick="changeTheme('nature')">Nature</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="focus-title" style="background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-size: 3rem;">Oops! Page Not Found</h1>
+        <p>The page you're looking for doesn't exist.</p>
+
+        <div id="quoteBox">
+            🌿 "In the midst of chaos, there is also opportunity." – Sun Tzu<br><br>
+            <em>Take a deep breath and refocus your energy.</em>
+        </div>
+
+        <button onclick="window.location.href='/'" style="margin-top: 20px; padding: 12px 24px; font-size: 1.1rem;">Return to FocusVerse</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <script>
+        // Theme switching functionality
+        function changeTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+
+            // Update active button state
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.querySelector(`.theme-${themeName}`).classList.add('active');
+
+            // Save theme preference to localStorage
+            localStorage.setItem('focusverse-theme', themeName);
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('focusverse-theme') || 'calm';
+            changeTheme(savedTheme);
+        });
+
+        let vantaEffect = VANTA.WAVES({
+            el: "body",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: window.innerHeight,
+            minWidth: window.innerWidth,
+            scale: 1.8,
+            scaleMobile: 1.00,
+            color: 0xff9966,
+            shininess: 50,
+            waveHeight: 20,
+            waveSpeed: 1.18,
+        });
+
+        window.addEventListener('resize', () => {
+            if (vantaEffect) {
+                vantaEffect.resize();
+            }
+        });
+    </script>
+</body>
+</html>
